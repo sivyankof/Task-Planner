@@ -9,9 +9,7 @@ buttons.addEventListener(`click`, function (event) {
     if (target.tagName != "BUTTON") {
         return;
     }
-
     highlight(target);
-
     showHideList(target);
 });
 
