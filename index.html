@@ -3,10 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/style/style.css">
-    <title>Task Planner</title>
+    <link rel="stylesheet" href="./assets/styles/style.css" />
+    <title>Task planner</title>
 </head>
 <body>
-    <script src="./assets/script/script.js"></script>
+
+  <!--У вас имееться исходный код HTML и СSS вам необходимо сделать кнопки на этой странице кликабельными. Надо написать по сути JS код
+    для того чтобы при нажатии на кнопку Скрыть список ваш список дел плавно сворачивался при условии что он был открыт до этого, и кнопка 
+    Скрыть список становилась неактивной как кнопка Показать список в самом начале, а кнопка Показать список становиться активной 
+    как была кнопка Скрыть список. При нажатии на кнопку Показать список ваш список должен раскрываться при условии что он был скрыт до этого
+    Для решения этой задачи можно воспользоваться всеми рассмотренными примерами на прошлом занятии как вспомогательный код-->
+
+  <div class="buttons-container">
+    <button data-action="show">Показать список</button>
+    <button data-action="hide" class="active">Скрыть список</button>
+  </div>
+   
+  <div class="list-container show">
+    <ul>
+      <h3>Список дел:</h3>
+      <li>Отвезти детей в сад</li>
+      <li>Заправить машину</li>
+      <li>Помыть машину</li>
+      <li>Поработать</li>
+      <li>Приготовить обед</li>
+      <li>Забрать детей</li>
+      <li>Сделать уборку</li>
+    </ul>
+  </div> 
+    
+    <script src="./assets/scripts/script.js"></script>
 </body>
 </html>

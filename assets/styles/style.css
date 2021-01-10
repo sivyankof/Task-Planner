@@ -1,0 +1,47 @@
+button {
+  outline: none;
+  cursor: pointer;
+  min-width: 200px;
+  color: white;
+  border: 2px solid;
+  border-radius: 20px;
+  padding: 10px;
+  font-size: 16px;
+  margin-top: 10px;
+  margin-left: 15px;
+  opacity: 0.4;
+}
+
+button[data-action="show"] {
+  background-color: red;
+}
+
+button[data-action="hide"] {
+  background-color: gray;
+}
+
+.active {
+  opacity: 0.9;
+}
+
+.active:hover {
+  opacity: 1;
+}
+
+div.list-container {
+  overflow: hidden;
+  transition: height 0.3s ease-out;
+}
+
+div.show {
+  height: 200px;
+}
+
+div.hide {
+  height: 35px;
+}
+
+li {
+  list-style-position: inside;
+}
+
