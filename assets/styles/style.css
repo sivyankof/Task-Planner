@@ -43,5 +43,9 @@ div.hide {
 
 li {
   list-style-position: inside;
+  list-style-type: none;
 }
+/* li::before {
+
+} */
 

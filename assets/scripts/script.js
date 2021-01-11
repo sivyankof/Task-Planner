@@ -1,8 +1,9 @@
-let buttons = document.querySelector(".buttons-container");
-let lists = document.querySelector(`.list-container`);
+const buttons = document.querySelector(".buttons-container");
+const lists = document.querySelector(`.list-container`);
 
 let selectedBtn;
 
+// При клики на кнопку срабатывает таргет и меняеться цвет кнопки и открывается список
 buttons.addEventListener(`click`, function (event) {
     let target = event.target;
 
@@ -13,6 +14,7 @@ buttons.addEventListener(`click`, function (event) {
     showHideList(target);
 });
 
+//Функция меняет цвет кнопки в зависимости активна ли она или нет
 function highlight(button) {
     if (selectedBtn) {
         selectedBtn.classList.remove("active");
@@ -21,6 +23,7 @@ function highlight(button) {
     selectedBtn.classList.add("active");
 }
 
+//Функция открывает и закрывает список  
 function showHideList(button) {
     if (button == buttons.firstElementChild) {
         lists.classList.add("show");
@@ -30,3 +33,13 @@ function showHideList(button) {
         lists.classList.remove(`show`);
     }
 }
+
+//Добавляю к каждому элементу списка чекбокс
+let li = document.querySelectorAll(`li`);
+
+li.forEach((e) => {
+    let checkBox = document.createElement(`input`);
+    checkBox.type = "checkbox";
+    e.prepend(checkBox);
+});
+
