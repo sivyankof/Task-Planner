@@ -34,18 +34,21 @@ div.list-container {
 }
 
 div.show {
-  height: 200px;
+  height: 250px;
 }
 
 div.hide {
-  height: 35px;
+  height: 50px;
 }
 
 li {
   list-style-position: inside;
   list-style-type: none;
+  font-size: 16px;
 }
-/* li::before {
+div .title {
+  padding-left: 40px;
+}
 
-} */
+
 

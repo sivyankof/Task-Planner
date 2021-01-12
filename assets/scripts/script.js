@@ -1,5 +1,6 @@
 const buttons = document.querySelector(".buttons-container");
 const lists = document.querySelector(`.list-container`);
+const li = document.querySelectorAll(`li`);
 
 let selectedBtn;
 
@@ -23,9 +24,9 @@ function highlight(button) {
     selectedBtn.classList.add("active");
 }
 
-//Функция открывает и закрывает список  
+//Функция открывает и закрывает список
 function showHideList(button) {
-    if (button == buttons.firstElementChild) {
+    if (button === buttons.firstElementChild) {
         lists.classList.add("show");
         lists.classList.remove(`hide`);
     } else {
@@ -35,11 +36,19 @@ function showHideList(button) {
 }
 
 //Добавляю к каждому элементу списка чекбокс
-let li = document.querySelectorAll(`li`);
-
 li.forEach((e) => {
     let checkBox = document.createElement(`input`);
     checkBox.type = "checkbox";
+    checkBox.addEventListener("change", function (event) {
+        e.style.textDecoration = event.target.checked ? "line-through" : "none";
+    });
+
+    //Выделения чекбокса при нажатии на список
+
+    e.addEventListener("click", function (event) {
+        if (event.target.localName === "li") {
+            checkBox.click();
+        }
+    });
     e.prepend(checkBox);
 });
-
