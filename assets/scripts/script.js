@@ -39,16 +39,30 @@ function showHideList(button) {
 li.forEach((e) => {
     let checkBox = document.createElement(`input`);
     checkBox.type = "checkbox";
+
     checkBox.addEventListener("change", function (event) {
         e.style.textDecoration = event.target.checked ? "line-through" : "none";
     });
 
-    //Выделения чекбокса при нажатии на список
-
+    //Выделение чекбокса при нажатии на список
     e.addEventListener("click", function (event) {
         if (event.target.localName === "li") {
             checkBox.click();
         }
     });
     e.prepend(checkBox);
+});
+
+// let spisoc = document.getElementsByTagName(`li`);
+// console.log(li)
+let ul = document.querySelector(`ul`);
+
+ul.addEventListener("click", function (event) {
+    if (event.target.checked === true) {
+        ul.append(event.target.parentElement);
+    } 
+    // else {
+    //  Если снять чекбокс, добавляет обратно элемент в начало списка
+    //     ul.prepend(event.target.parentElement);
+    // }
 });
