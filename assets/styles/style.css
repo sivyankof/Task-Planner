@@ -30,7 +30,7 @@ button[data-action="hide"] {
 
 div.list-container {
   overflow: hidden;
-  transition: height 0.3s ease-out;
+  transition: 0.5s ease-out;
 }
 
 div.show {
@@ -45,10 +45,16 @@ li {
   list-style-position: inside;
   list-style-type: none;
   font-size: 16px;
+  height: 20px;
+  transition: 1s;
 }
 div .title {
   padding-left: 40px;
 }
 
-
+.stealth {
+  height: 0em;
+  overflow: hidden;
+  transition:  1s ease-out;
+}
 
