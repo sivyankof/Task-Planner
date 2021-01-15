@@ -13,19 +13,19 @@ buttons.addEventListener(`click`, function (event) {
     }
 
     //При нажатии кнопку Hide - скрывает невыбранные элементы, при нажатии на Show - возвращает все элементы
-    if (target.dataset.action === `hide`) {
-        li.forEach((e) => {
-            if (e.firstElementChild.checked !== true) {
-                e.classList.add(`stealth`);
-            }
-        });
-    } else {
-        li.forEach((e) => {
-            if (e.firstElementChild.checked !== true) {
-                e.classList.remove(`stealth`);
-            }
-        });
-    }
+    // if (target.dataset.action === `hide`) {
+    //     li.forEach((e) => {
+    //         if (e.firstElementChild.checked !== true) {
+    //             e.classList.add(`stealth`);
+    //         }
+    //     });
+    // } else {
+    //     li.forEach((e) => {
+    //         if (e.firstElementChild.checked !== true) {
+    //             e.classList.remove(`stealth`);
+    //         }
+    //     });
+    // }
 
     highlight(target);
     // showHideList(target);
@@ -79,3 +79,28 @@ li.forEach((e) => {
 //         ul.append(event.target.parentElement);
 //     }
 // });
+
+//Анимация через JS по сворачиванию списка , при нажатии на hide элементы (li) перемещаются на нажатую кнопку Hide
+// плавно
+
+buttons.addEventListener(`click`, function (event) {
+    let target = event.target;
+
+    if (target.dataset.action === `hide`) {
+        li.forEach((e) => {
+            if (e.firstElementChild.checked !== true) {
+                e.classList.add(`move`);
+
+                // e.style.position = `absolute`;
+                // e.style.left = event.pageX + "px";
+                // e.style.top = event.pageY - event.pageY / 2 + "px";
+            }
+        });
+    } else if (target.dataset.action === `show`) {
+        li.forEach((e) => {
+            e.classList.remove(`move`);
+            e.style.top = ``;
+            e.style.left = ``;
+        });
+    }
+});

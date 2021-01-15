@@ -47,6 +47,10 @@ li {
   font-size: 16px;
   height: 20px;
   transition: 1s;
+  
+  position: relative;
+  left: 0px;
+  top: 0px;
 }
 div .title {
   padding-left: 40px;
@@ -56,5 +60,14 @@ div .title {
   height: 0em;
   overflow: hidden;
   transition:  1s ease-out;
+}
+
+.move {
+  /* position: relative; */
+  height: 0px;
+  opacity: 0;
+  left: 240px;
+  top: -110px;
+  transition:   2s;
 }
 
