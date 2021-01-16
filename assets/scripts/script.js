@@ -80,8 +80,8 @@ li.forEach((e) => {
 //     }
 // });
 
-//Анимация через JS по сворачиванию списка , при нажатии на hide элементы (li) перемещаются на нажатую кнопку Hide
-// плавно
+//Анимация через Class по сворачиванию списка. При клике на hide элементы (li) плавно перемещаются на
+// нажатую кнопку hide
 
 buttons.addEventListener(`click`, function (event) {
     let target = event.target;
@@ -90,17 +90,59 @@ buttons.addEventListener(`click`, function (event) {
         li.forEach((e) => {
             if (e.firstElementChild.checked !== true) {
                 e.classList.add(`move`);
-
-                // e.style.position = `absolute`;
-                // e.style.left = event.pageX + "px";
-                // e.style.top = event.pageY - event.pageY / 2 + "px";
             }
         });
     } else if (target.dataset.action === `show`) {
         li.forEach((e) => {
             e.classList.remove(`move`);
-            e.style.top = ``;
-            e.style.left = ``;
+            (e.style.top = ``) && (e.style.left = ``);
         });
     }
 });
+
+//Анимация через JS по сворачиванию списка , при нажатии на hide элементы (li) перемещаются на
+// нажатую кнопку Hide плавно
+
+// buttons.addEventListener(`click`, function (event) {
+//     let target = event.target;
+
+//     if (target.dataset.action === `hide`) {
+//         li.forEach((e) => {
+//             if (e.firstElementChild.checked !== true) {
+//                 let buttomHide = this.getBoundingClientRect();
+
+//                 let listLI = {
+//                     top:
+//                         event.clientY -
+//                         buttomHide.top -
+//                         buttons.clientTop -
+//                         e.clientHeight / 2 -
+//                         150,
+//                     left:
+//                         event.clientX -
+//                         buttomHide.left -
+//                         buttons.clientLeft -
+//                         e.clientWidth / 2 +
+//                         200,
+//                 };
+
+//                 e.style.left = listLI.left + "px";
+//                 e.style.top = listLI.top + "px";
+//                 e.style.opacity = 0;
+//                 setTimeout(() => {
+//                     if (e.style.left == (listLI.left + `px`)) {
+//                         e.style.display = `none`;
+//                     }
+//                 }, 1000);
+//             }
+//         });
+//     } else if (target.dataset.action === `show`) {
+//         li.forEach((e) => {
+//             e.style.position = `relative`;
+//             e.style.top = ``;
+//             e.style.left = ``;
+//             e.style.opacity = ``;
+//             e.style.display = ``;
+//         });
+//     }
+// });

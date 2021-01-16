@@ -10,6 +10,7 @@ button {
   margin-top: 10px;
   margin-left: 15px;
   opacity: 0.4;
+  position: relative;
 }
 
 button[data-action="show"] {
@@ -44,6 +45,7 @@ div.hide {
 li {
   list-style-position: inside;
   list-style-type: none;
+  cursor: pointer;
   font-size: 16px;
   height: 20px;
   transition: 1s;
@@ -63,11 +65,14 @@ div .title {
 }
 
 .move {
-  /* position: relative; */
   height: 0px;
   opacity: 0;
   left: 240px;
   top: -110px;
   transition:   2s;
+  
 }
+
+
+
 
