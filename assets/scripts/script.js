@@ -2,6 +2,8 @@ const buttons = document.querySelector(".buttons-container");
 const lists = document.querySelector(`.list-container`);
 const li = document.querySelectorAll(`li`);
 
+let body = document.querySelector(`body`);
+
 let selectedBtn;
 
 // При клики на кнопку срабатывает таргет и меняеться цвет кнопки и открывается список
@@ -12,23 +14,7 @@ buttons.addEventListener(`click`, function (event) {
         return;
     }
 
-    //При нажатии кнопку Hide - скрывает невыбранные элементы, при нажатии на Show - возвращает все элементы
-    // if (target.dataset.action === `hide`) {
-    //     li.forEach((e) => {
-    //         if (e.firstElementChild.checked !== true) {
-    //             e.classList.add(`stealth`);
-    //         }
-    //     });
-    // } else {
-    //     li.forEach((e) => {
-    //         if (e.firstElementChild.checked !== true) {
-    //             e.classList.remove(`stealth`);
-    //         }
-    //     });
-    // }
-
     highlight(target);
-    // showHideList(target);
 });
 
 //Функция меняет цвет кнопки в зависимости активна ли она или нет
@@ -40,22 +26,11 @@ function highlight(button) {
     selectedBtn.classList.add("active");
 }
 
-//Функция открывает и закрывает список (первое задание)
-// function showHideList(button) {
-//     if (button === buttons.firstElementChild) {
-//         lists.classList.add("show");
-//         lists.classList.remove(`hide`);
-//     }
-// else {
-//     lists.classList.add("hide");
-//     lists.classList.remove(`show`);
-// }
-// }
-
 //Добавляю к каждому элементу списка чекбокс
 li.forEach((e) => {
     let checkBox = document.createElement(`input`);
     checkBox.type = "checkbox";
+    checkBox.style.marginRight = "10px";
 
     checkBox.addEventListener("change", function (event) {
         e.style.textDecoration = event.target.checked ? "line-through" : "none";
@@ -71,17 +46,72 @@ li.forEach((e) => {
     e.prepend(checkBox);
 });
 
-// Перемещает выбраннвый элемент в конец списка
-// let ul = document.querySelector(`ul`);
+let buttonAdd = document.querySelector(".add-task");
 
-// ul.addEventListener("click", function (event) {
-//     if (event.target.checked === true) {
-//         ul.append(event.target.parentElement);
-//     }
-// });
+buttonAdd.addEventListener("click", function (event) {
+    let buttonAddTask = document.querySelector(".button__add-task");
 
-//Анимация через Class по сворачиванию списка. При клике на hide элементы (li) плавно перемещаются на
-// нажатую кнопку hide
+    let target = event.target;
+
+    if (buttons.lastElementChild.className !== "button__add-task") {
+        addTasks(target);
+        // if (ddTasks(target)) {
+        //     console.log(target);
+        // }
+        let buttonSent = document.querySelector(".button-sent");
+        let ul = document.querySelector(`ul`);
+        let inputTask = document.querySelector(".input-task");
+
+        inputTask.addEventListener("change", function (event) {
+            let li = document.createElement(`li`);
+            let input = document.createElement("input");
+
+            input.type = "checkbox";
+            input.style.marginRight = "10px";
+
+            buttonSent.addEventListener("click", function (event) {
+                li.innerText = inputTask.value;
+                li.prepend(input);
+                ul.appendChild(li);
+                buttons.lastElementChild.remove("button__add-task");
+            });
+
+            inputTask.addEventListener("keyup", function (event) {
+                if (event.key == "Enter") {
+                    // console.log(event.keyCode)
+                    li.innerText = inputTask.value;
+                    li.prepend(input);
+                    ul.appendChild(li);
+                    buttons.lastElementChild.remove("button__add-task");
+                }
+            });
+        });
+    } else {
+        buttons.lastElementChild.remove("button__add-task");
+    }
+});
+
+function addTasks(button) {
+    if (button.value === "add") {
+        let div = document.createElement("div");
+        let input = document.createElement("input");
+        let buttonSent = document.createElement("button");
+
+        div.classList.add("button__add-task");
+        input.classList.add("input-task");
+        input.type = "text";
+        input.placeholder = "Введите новую задачу";
+
+        buttonSent.classList.add("button-sent");
+        buttonSent.type = "button";
+
+        buttons.append(div);
+        div.prepend(input);
+        div.append(buttonSent);
+    }
+}
+
+//Анимация через Class по сворачиванию списка. При клике на hide элементы (li) плавно перемещаются на в лево
 
 buttons.addEventListener(`click`, function (event) {
     let target = event.target;
@@ -95,54 +125,7 @@ buttons.addEventListener(`click`, function (event) {
     } else if (target.dataset.action === `show`) {
         li.forEach((e) => {
             e.classList.remove(`move`);
-            (e.style.top = ``) && (e.style.left = ``);
         });
     }
 });
-
-//Анимация через JS по сворачиванию списка , при нажатии на hide элементы (li) перемещаются на
-// нажатую кнопку Hide плавно
-
-// buttons.addEventListener(`click`, function (event) {
-//     let target = event.target;
-
-//     if (target.dataset.action === `hide`) {
-//         li.forEach((e) => {
-//             if (e.firstElementChild.checked !== true) {
-//                 let buttomHide = this.getBoundingClientRect();
-
-//                 let listLI = {
-//                     top:
-//                         event.clientY -
-//                         buttomHide.top -
-//                         buttons.clientTop -
-//                         e.clientHeight / 2 -
-//                         150,
-//                     left:
-//                         event.clientX -
-//                         buttomHide.left -
-//                         buttons.clientLeft -
-//                         e.clientWidth / 2 +
-//                         200,
-//                 };
-
-//                 e.style.left = listLI.left + "px";
-//                 e.style.top = listLI.top + "px";
-//                 e.style.opacity = 0;
-//                 setTimeout(() => {
-//                     if (e.style.left == (listLI.left + `px`)) {
-//                         e.style.display = `none`;
-//                     }
-//                 }, 1000);
-//             }
-//         });
-//     } else if (target.dataset.action === `show`) {
-//         li.forEach((e) => {
-//             e.style.position = `relative`;
-//             e.style.top = ``;
-//             e.style.left = ``;
-//             e.style.opacity = ``;
-//             e.style.display = ``;
-//         });
-//     }
-// });
+// Добавление кнопки новой задачи
