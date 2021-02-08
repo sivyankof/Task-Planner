@@ -91,11 +91,11 @@ div .title {
     height: max-content;
     border: 1px solid rgba(209, 09, 209, 0.11);
     border-radius: 5px;
+    opacity: 1;
     background-color: rgb(241 241 241);
     box-shadow: 5px 12px 21px -10px rgb(0 0 0 / 25%);
     -webkit-box-shadow: 5px 12px 21px -10px rgb(0 0 0 / 25%);
     -moz-box-shadow: 5px 12px 21px -10px rgb(0 0 0 / 25%);
-    opacity: 0.7;
 }
 
 .input-task {
