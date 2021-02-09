@@ -45,7 +45,6 @@ button:hover {
 }
 
 div.list-container {
-    overflow: hidden;
     transition: 0.5s ease-out;
     height: auto;
 }

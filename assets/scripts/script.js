@@ -1,6 +1,6 @@
 const buttons = document.querySelector(".buttons-container");
 const lists = document.querySelector(`.list-container`);
-const li = document.querySelectorAll(`li`);
+const li = document.getElementsByTagName(`li`);
 
 let body = document.querySelector(`body`);
 
@@ -26,38 +26,25 @@ function highlight(button) {
     selectedBtn.classList.add("active");
 }
 
-//Добавляю к каждому элементу списка чекбокс
-li.forEach((e) => {
+//цикл проходит по li и выставляет чебоксы
+
+for (let e of li) {
     let checkBox = document.createElement(`input`);
     checkBox.type = "checkbox";
     checkBox.style.marginRight = "10px";
 
-    checkBox.addEventListener("change", function (event) {
-        e.style.textDecoration = event.target.checked ? "line-through" : "none";
-        e.style.color = event.target.checked ? `grey` : `black`;
-    });
-
-    //Выделение чекбокса при нажатии на список
-    e.addEventListener("click", function (event) {
-        if (event.target.localName === "li") {
-            checkBox.click();
-        }
-    });
     e.prepend(checkBox);
-});
+}
 
+// Добавление кнопки новой задачи
 let buttonAdd = document.querySelector(".add-task");
 
 buttonAdd.addEventListener("click", function (event) {
-    let buttonAddTask = document.querySelector(".button__add-task");
-
     let target = event.target;
 
     if (buttons.lastElementChild.className !== "button__add-task") {
         addTasks(target);
-        // if (ddTasks(target)) {
-        //     console.log(target);
-        // }
+
         let buttonSent = document.querySelector(".button-sent");
         let ul = document.querySelector(`ul`);
         let inputTask = document.querySelector(".input-task");
@@ -69,6 +56,7 @@ buttonAdd.addEventListener("click", function (event) {
             input.type = "checkbox";
             input.style.marginRight = "10px";
 
+            // реагирует на нажатие ПКМ
             buttonSent.addEventListener("click", function (event) {
                 li.innerText = inputTask.value;
                 li.prepend(input);
@@ -76,6 +64,7 @@ buttonAdd.addEventListener("click", function (event) {
                 buttons.lastElementChild.remove("button__add-task");
             });
 
+            // реагирует на нажатие Enter
             inputTask.addEventListener("keyup", function (event) {
                 if (event.key == "Enter") {
                     // console.log(event.keyCode)
@@ -91,6 +80,7 @@ buttonAdd.addEventListener("click", function (event) {
     }
 });
 
+// функция которая созданет модальное окно добавления задачи
 function addTasks(button) {
     if (button.value === "add") {
         let div = document.createElement("div");
@@ -112,20 +102,41 @@ function addTasks(button) {
 }
 
 //Анимация через Class по сворачиванию списка. При клике на hide элементы (li) плавно перемещаются на в лево
-
+//(добавляя класс move)
 buttons.addEventListener(`click`, function (event) {
     let target = event.target;
 
     if (target.dataset.action === `hide`) {
-        li.forEach((e) => {
+        for (let e of li) {
             if (e.firstElementChild.checked !== true) {
                 e.classList.add(`move`);
             }
-        });
+        }
+        // );
     } else if (target.dataset.action === `show`) {
-        li.forEach((e) => {
+        for (let e of li) {
             e.classList.remove(`move`);
-        });
+        }
     }
 });
-// Добавление кнопки новой задачи
+
+// при нажатии на li или checkbox текст перечеркивается и становиться серым  
+lists.addEventListener("click", function (e) {
+    let target = e.target;
+
+    if (target.tagName == "LI") {
+        target.firstElementChild.checked
+            ? ((target.firstElementChild.checked = false),
+              (target.style.textDecoration = "none"))
+            : ((target.firstElementChild.checked = true),
+              (target.style.textDecoration = "line-through"));
+
+        target.style.color = target.firstElementChild.checked
+            ? `grey`
+            : `black`;
+    }
+
+    target.checked
+        ? (target.parentNode.style.textDecoration = "line-through")
+        : (target.parentNode.style.textDecoration = "none");
+});
