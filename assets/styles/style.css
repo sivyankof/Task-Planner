@@ -32,16 +32,9 @@ button[data-action="hide"] {
 .buttons-container .add-task {
     background-color: rebeccapurple;
 }
-button:hover {
-    opacity: 0.8;
-}
 
 .active {
     opacity: 0.9;
-}
-
-.active:hover {
-    opacity: 1;
 }
 
 div.list-container {

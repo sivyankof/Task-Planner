@@ -120,7 +120,7 @@ buttons.addEventListener(`click`, function (event) {
     }
 });
 
-// при нажатии на li или checkbox текст перечеркивается и становиться серым  
+// при нажатии на li или checkbox текст перечеркивается и становиться серым
 lists.addEventListener("click", function (e) {
     let target = e.target;
 
