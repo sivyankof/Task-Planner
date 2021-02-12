@@ -1,43 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="./assets/styles/style.css" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.css"
+        />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/styles/style.css" />
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.css">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700&display=swap"
+            rel="stylesheet"
+        />
+        <title>Task planner</title>
+    </head>
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700&display=swap"
-        rel="stylesheet">
-    <title>Task planner</title>
-</head>
+    <body>
+        <div class="buttons-container">
+            <button class="add-task" type="button" value="add">
+                Добавить задачу
+            </button>
+            <button data-action="show" type="button">Показать список</button>
+            <button data-action="hide" type="button" class="active">
+                Скрыть список
+            </button>
+        </div>
 
-<body>
+        <div class="list-container show">
+            <h2 class="title">Список дел:</h2>
 
-    <div class="buttons-container">
-        <button class="add-task" type="button" value="add">Добавить задачу</button>
-        <button data-action="show" type="button">Показать список</button>
-        <button data-action="hide" type="button" class="active">Скрыть список</button>
-    </div>
+            <ul>
+                <li>Отвезти детей в сад</li>
+                <li>Заправить машину</li>
+                <li>Помыть машину</li>
+                <li>Поработать</li>
+                <li>Приготовить обед</li>
+                <li>Забрать детей</li>
+                <li>Сделать уборку</li>
+            </ul>
+        </div>
 
-    <div class="list-container show">
-        <h2 class="title">Список дел:</h2>
-
-        <ul>
-            <!-- Список дел: -->
-            <li>Отвезти детей в сад</li>
-            <li>Заправить машину</li>
-            <li>Помыть машину</li>
-            <li>Поработать</li>
-            <li>Приготовить обед</li>
-            <li>Забрать детей</li>
-            <li>Сделать уборку</li>
-        </ul>
-    </div>
-
-    <script src="./assets/scripts/script.js"></script>
-</body>
-
+        <script src="./assets/scripts/script.js"></script>
+    </body>
 </html>

@@ -140,3 +140,12 @@ lists.addEventListener("click", function (e) {
         ? (target.parentNode.style.textDecoration = "line-through")
         : (target.parentNode.style.textDecoration = "none");
 });
+
+
+var myCar = {
+    wheels: 4,
+    doors: 4,
+    engine: 1,
+    name: "Jaguar",
+};
+
