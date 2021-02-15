@@ -51,16 +51,27 @@ div.hide {
 }
 
 li {
+    display: flex;
+    position: relative;
     list-style-position: inside;
     list-style-type: none;
     cursor: pointer;
     height: 20px;
     transition: 1s;
-    position: relative;
     left: 0px;
     top: 0px;
     font-size: 2rem;
+    width: 20em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    z-index: 1;
+
+    /* width: 370px; 
+    white-space: nowrap; 
+    overflow:hidden; */
 }
+
 div .title {
     padding-left: 40px;
 }
@@ -77,7 +88,7 @@ div .title {
     display: flex;
     flex-direction: column;
     justify-content: end;
-    z-index: 2;
+    z-index: 10;
     padding: 20px;
     width: 30em;
     height: max-content;
@@ -105,19 +116,56 @@ div .title {
     align-self: flex-end;
     margin-top: 10px;
     width: 10px;
-    /* width: 5rem;
-    height: 5rem; */
+
     border: none;
     outline: none;
     margin-right: 10px;
 }
 
 .button-sent::after {
-    content: "\f1d8"; /* добавляем иконку дом */
+    content: "\f1d8";
     font-family: FontAwesome;
     color: teal;
     font-size: 26px;
     left: 10px;
     left: -10px;
     position: relative;
+}
+
+.close {
+    position: absolute;
+    right: 0;
+    border: none;
+    outline: none;
+    background-color: unset;
+    opacity: 0.5;
+    margin-left: auto;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.close::after {
+    content: "\f00d";
+    font-family: FontAwesome;
+    color: teal;
+    font-size: 20px;
+}
+.close:hover {
+    opacity: 1;
+}
+
+.closeBlur {
+    position: absolute;
+    right: -1em;
+    border: none;
+    outline: none;
+    background-color: white;
+    z-index: 2;
+    width: 5em;
+    height: 5em;
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -o-filter: blur(10px);
+    -ms-filter: blur(10px);
+    filter: blur(3px);
 }
