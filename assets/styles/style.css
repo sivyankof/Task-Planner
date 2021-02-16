@@ -5,6 +5,12 @@ body {
     font-size: 1.6rem;
     font-family: "Roboto", sans-serif;
 }
+.wrap {
+    display: block;
+    margin: 0 auto 0 auto;
+    text-align: center;
+}
+
 .buttons-container > * {
     outline: none;
     cursor: pointer;
@@ -39,11 +45,12 @@ button[data-action="hide"] {
 
 div.list-container {
     transition: 0.5s ease-out;
-    height: auto;
+    display: block;
+    margin: 0 auto;
+    max-width: 500px;
 }
-
-div.show {
-    height: 250px;
+.list-container ul {
+    padding: 0;
 }
 
 div.hide {
@@ -52,24 +59,22 @@ div.hide {
 
 li {
     display: flex;
+    align-items: center;
     position: relative;
+    z-index: 1;
+    border-bottom: solid 1px rgba(128, 128, 128, 0.39);
+    min-width: 300px;
+    max-width: 500px;
+    height: 2em;
+    left: 0px;
+    font-size: 2rem;
     list-style-position: inside;
     list-style-type: none;
     cursor: pointer;
-    height: 20px;
     transition: 1s;
-    left: 0px;
-    top: 0px;
-    font-size: 2rem;
-    width: 20em;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    z-index: 1;
-
-    /* width: 370px; 
-    white-space: nowrap; 
-    overflow:hidden; */
 }
 
 div .title {
@@ -87,10 +92,10 @@ div .title {
     position: absolute;
     display: flex;
     flex-direction: column;
-    justify-content: end;
+    left: 30vw;
     z-index: 10;
     padding: 20px;
-    width: 30em;
+    width: 40vmax;
     height: max-content;
     border: 1px solid rgba(209, 09, 209, 0.11);
     border-radius: 5px;
@@ -129,6 +134,7 @@ div .title {
     font-size: 26px;
     left: 10px;
     left: -10px;
+
     position: relative;
 }
 
@@ -168,4 +174,9 @@ div .title {
     -o-filter: blur(10px);
     -ms-filter: blur(10px);
     filter: blur(3px);
+}
+
+.taskSelected {
+    color: grey;
+    text-decoration: line-through;
 }

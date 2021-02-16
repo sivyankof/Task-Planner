@@ -18,21 +18,22 @@
     </head>
 
     <body>
-        <div class="buttons-container">
-            <button class="add-task" type="button" value="add">
-                Добавить задачу
-            </button>
-            <button data-action="show" type="button" class="active">
-                Показать список
-            </button>
-            <button data-action="hide" type="button">Скрыть список</button>
-        </div>
+        <div class="wrap">
+            <div class="buttons-container">
+                <button class="add-task" type="button" value="add">
+                    Добавить задачу
+                </button>
+                <button data-action="show" type="button" >
+                    Показать список
+                </button>
+                <button data-action="hide" type="button">Скрыть список</button>
+            </div>
 
-        <div class="list-container show">
-            <h2 class="title">Список дел:</h2>
-            <ul></ul>
-        </div>
-
+            <div class="list-container show">
+                <h2 class="title">Список дел:</h2>
+                <ul></ul>
+            </div>
+        </dev>
         <script src="./assets/scripts/script.js"></script>
     </body>
 </html>
