@@ -23,17 +23,28 @@
                 <button class="add-task" type="button" value="add">
                     Добавить задачу
                 </button>
-                <button data-action="show" type="button" >
+
+                <button data-action="show" type="button">
                     Показать список
                 </button>
+
                 <button data-action="hide" type="button">Скрыть список</button>
+
+                <div class="button__add-task" style="visibility: hidden">
+                    <input
+                        class="input-task"
+                        type="text"
+                        placeholder="Введите новую задачу"
+                    />
+                    <button class="button-sent" type="button"></button>
+                </div>
             </div>
 
             <div class="list-container show">
                 <h2 class="title">Список дел:</h2>
                 <ul></ul>
             </div>
-        </dev>
+        </div>
         <script src="./assets/scripts/script.js"></script>
     </body>
 </html>

@@ -21,82 +21,81 @@ buttons.addEventListener(`click`, function (event) {
     }
 });
 
-// Добавление кнопки новой задачи
-let buttonAdd = document
+// кликаю по кнопке "добавление новой задачи"
+let buttonAddTask = document
     .querySelector(".add-task")
-    .addEventListener("click", function (event) {
-        let target = event.target;
-
-        // если только нажата кнопка "добавить задачу"
-        if (buttons.lastElementChild.className !== "button__add-task") {
-            addTasks(target);
-
-            let buttonSent = document.querySelector(".button-sent");
-            let inputTask = document.querySelector(".input-task");
-
-            //добавляю событие на кнопку
-            inputTask.addEventListener("change", function (event) {
-                let li = document.createElement(`li`);
-                let input = document.createElement("input");
-                let closeButton = document.createElement("button");
-                let closeBlur = document.createElement("button");
-
-                input.type = "checkbox";
-                input.style.marginRight = "10px";
-                closeButton.type = "button";
-                closeBlur.type = "button";
-
-                closeButton.classList.add("close");
-                closeBlur.classList.add("closeBlur");
-
-                // реагирует на нажатие ПКМ
-                buttonSent.addEventListener("click", function () {
-                    li.innerText = inputTask.value;
-                    li.prepend(input);
-                    li.append(closeButton);
-                    li.append(closeBlur);
-
-                    ul.appendChild(li);
-                    buttons.lastElementChild.remove("button__add-task");
-                });
-
-                // реагирует на нажатие Enter
-                inputTask.addEventListener("keyup", function (event) {
-                    if (event.key == "Enter") {
-                        li.innerText = inputTask.value;
-                        li.prepend(input);
-                        li.append(closeButton);
-                        li.append(closeBlur);
-                        ul.appendChild(li);
-                        buttons.lastElementChild.remove("button__add-task");
-                    }
-                });
-            });
+    .addEventListener("click", function (e) {
+        //если окошко с было скрыто, отображаем его, если открыто, то скрывает
+        if (buttons.lastElementChild.style.visibility == "hidden") {
+            buttons.lastElementChild.style.visibility = "visible";
+            inputTask.focus();
         } else {
-            buttons.lastElementChild.remove("button__add-task");
+            buttons.lastElementChild.style.visibility = "hidden";
         }
+        e.preventDefault();
     });
 
-// функция которая созданет модальное окно добавления задачи
-function addTasks(button) {
-    if (button.value === "add") {
-        let divAddTask = document.createElement("div");
-        let inputNewTaskText = document.createElement("input");
-        let buttonSentTask = document.createElement("button");
+let inputTask = document.querySelector(".input-task");
+let buttonSent = document.querySelector(".button-sent");
 
-        divAddTask.classList.add("button__add-task");
-        inputNewTaskText.classList.add("input-task");
-        inputNewTaskText.type = "text";
-        inputNewTaskText.placeholder = "Введите новую задачу";
+// реагирует на нажатие ПКМ
+buttonSent.addEventListener("click", function (e) {
+    let li = document.createElement(`li`);
+    let input = document.createElement("input");
+    let closeButton = document.createElement("button");
+    let closeBlur = document.createElement("button");
+    let label = document.createElement("label");
 
-        buttonSentTask.classList.add("button-sent");
-        buttonSentTask.type = "button";
+    //генерируем случайное имя для li
+    var checkIdRandomName = Math.random().toString(36).substr(2, 5);
+    input.setAttribute("id", checkIdRandomName);
+    label.setAttribute("for", checkIdRandomName);
 
-        buttons.append(divAddTask);
-        divAddTask.prepend(inputNewTaskText);
-        divAddTask.append(buttonSentTask);
+    // добавляем атрибуты
+    input.type = "checkbox";
+    closeButton.type = "button";
+    closeBlur.type = "button";
+    closeButton.classList.add("close");
+    closeBlur.classList.add("closeBlur");
+
+    // читаем значение и добавялем в ли
+    label.innerText = inputTask.value;
+    li.prepend(input, label);
+    li.append(closeButton, closeBlur);
+    ul.appendChild(li);
+    inputTask.value = "";
+    buttons.lastElementChild.style.visibility = "hidden";
+});
+inputTask.addEventListener("keydown", function (e) {
+
+    if (e.key == "Enter") {
+        let li = document.createElement(`li`);
+        let input = document.createElement("input");
+        let closeButton = document.createElement("button");
+        let closeBlur = document.createElement("button");
+        let label = document.createElement("label");
+
+        //генерируем случайное имя для li
+        var checkIdRandomName = Math.random().toString(36).substr(2, 5);
+        input.setAttribute("id", checkIdRandomName);
+        label.setAttribute("for", checkIdRandomName);
+
+        // добавляем атрибуты
+        input.type = "checkbox";
+        closeButton.type = "button";
+        closeBlur.type = "button";
+        closeButton.classList.add("close");
+        closeBlur.classList.add("closeBlur");
+
+        // читаем значение и добавялем в ли
+        label.innerText = inputTask.value;
+        li.prepend(input, label);
+        li.append(closeButton, closeBlur);
+        ul.appendChild(li);
+        inputTask.value = "";
+        buttons.lastElementChild.style.visibility = "hidden";
     }
-}
+});
 
 //Анимация через Class по сворачиванию списка. При клике на hide элементы (li) плавно перемещаются на в лево
 //(добавляя класс move)
@@ -120,25 +119,11 @@ buttons.addEventListener(`click`, function (event) {
 // при нажатии на li или checkbox текст перечеркивается и становиться серым
 lists.addEventListener("click", function (e) {
     let target = e.target;
-    // только при нажатии  на текст li
-    if (target.tagName == "LI") {
-        target.firstElementChild.checked
-            ? ((target.firstElementChild.checked = false),
-              target.firstElementChild.setAttribute("checked", false),
-              target.classList.remove("taskSelected"))
-            : ((target.firstElementChild.checked = true),
-              target.firstElementChild.setAttribute("checked", true),
-              target.classList.add("taskSelected"));
-    }
-    //только при нажатии на чекбокс
-    if (target.tagName == "INPUT") {
-        target.checked
-            ? (target.parentNode.classList.add("taskSelected"),
-              target.setAttribute("checked", true))
-            : (target.parentNode.classList.remove("taskSelected"),
-              target.setAttribute("checked", false));
-    }
+    target.checked
+        ? target.setAttribute("checked", "")
+        : target.removeAttribute("checked");
 });
+
 //при нажатии на крестик удаляет ли
 lists.addEventListener("click", function (e) {
     if (e.target.className == "close") {

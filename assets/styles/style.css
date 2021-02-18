@@ -88,6 +88,7 @@ div .title {
     transition: 1s;
 }
 
+
 .button__add-task {
     position: absolute;
     display: flex;
@@ -97,7 +98,7 @@ div .title {
     padding: 20px;
     width: 40vmax;
     height: max-content;
-    border: 1px solid rgba(209, 09, 209, 0.11);
+    border: 1px solid rgb(196 196 196 / 11%);
     border-radius: 5px;
     opacity: 1;
     background-color: rgb(241 241 241);
@@ -109,11 +110,13 @@ div .title {
 .input-task {
     display: block;
     font-size: 2rem;
-    width: 100%;
+    width: 95%;
     height: 4rem;
     border: none;
     border-radius: 10px;
     outline: none;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .button-sent {
@@ -121,7 +124,7 @@ div .title {
     align-self: flex-end;
     margin-top: 10px;
     width: 10px;
-
+    background-color: rgb(241 241 241);
     border: none;
     outline: none;
     margin-right: 10px;
@@ -134,7 +137,6 @@ div .title {
     font-size: 26px;
     left: 10px;
     left: -10px;
-
     position: relative;
 }
 
@@ -176,7 +178,44 @@ div .title {
     filter: blur(3px);
 }
 
-.taskSelected {
-    color: grey;
-    text-decoration: line-through;
+
+input[type="checkbox"] {
+    display: none;
 }
+
+.list-container label::before{
+    content: "\f096";
+    font-family: FontAwesome;
+    color: rgba(0, 0, 0, 0.712);
+    font-size: 20px;
+    margin: 0 15px 0 10px;
+
+}
+
+
+.list-container input[type=checkbox]:checked + label::before{
+    content: "\f046";
+    font-family: FontAwesome;
+    color: #c3c3c3ec;
+    font-size: 20px;
+    margin: 0 12px 0 10px;
+}
+.list-container input[checked] + label{
+    color: #c3c3c3ec;
+}
+/* 
+
+.checkBoxEmpty {
+    content: "\f096";
+    font-family: FontAwesome;
+    color: blue;
+    font-size: 20px;
+}
+
+.checkBoxChecked {
+    content: "\f046";
+    font-family: FontAwesome;
+    color: gray;
+    font-size: 20px;
+    margin: 0 10px 0 10px;
+} */
