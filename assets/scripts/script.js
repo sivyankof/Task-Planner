@@ -24,23 +24,22 @@ buttons.addEventListener(`click`, function (event) {
 // кликаю по кнопке "добавление новой задачи"
 let AddTask = document
     .querySelector(".add-task")
-    .addEventListener("click", function (e) {
-        //если окошко с было скрыто, отображаем его, если открыто, то скрывает
-        buttons.lastElementChild.style.visibility == "hidden"
-            ? ((buttons.lastElementChild.style.visibility = "visible"),
-              inputTask.focus())
-            : (buttons.lastElementChild.style.visibility = "hidden");
-    });
+    .addEventListener("click", hideAndVisiblebuttonTask);
+
+function hideAndVisiblebuttonTask(e) {
+    //если окошко с было скрыто, отображаем его, если открыто, то скрывает
+    buttons.lastElementChild.style.visibility == "hidden"
+        ? ((buttons.lastElementChild.style.visibility = "visible"),
+          inputTask.focus())
+        : (buttons.lastElementChild.style.visibility = "hidden");
+}
 
 //выбор приоритета и передача его инпутут
 let buttonAddTask = document
     .querySelector(".button__add-task")
     .addEventListener("click", function (e) {
-
         if (e.target.classList[1] != undefined) {
-
             priority = e.target.classList[1];
-
         }
     });
 
@@ -101,7 +100,9 @@ function createTagsforTasksButton(elem) {
 //Анимация через Class по сворачиванию списка. При клике на hide элементы (li) плавно перемещаются на в лево
 //(добавляя класс move)
 
-buttons.addEventListener(`click`, function (event) {
+buttons.addEventListener(`click`, addAndRemoveClass);
+
+function addAndRemoveClass(event) {
     let target = event.target;
 
     if (target.dataset.action === `hide`) {
@@ -115,7 +116,7 @@ buttons.addEventListener(`click`, function (event) {
             e.classList.remove(`move`);
         }
     }
-});
+}
 
 // при нажатии на li или checkbox текст перечеркивается и становиться серым
 lists.addEventListener("click", function (e) {
