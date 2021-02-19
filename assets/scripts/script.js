@@ -22,7 +22,7 @@ buttons.addEventListener(`click`, function (event) {
 });
 
 // кликаю по кнопке "добавление новой задачи"
-let buttonAddTask = document
+let AddTask = document
     .querySelector(".add-task")
     .addEventListener("click", function (e) {
         //если окошко с было скрыто, отображаем его, если открыто, то скрывает
@@ -30,36 +30,51 @@ let buttonAddTask = document
             ? ((buttons.lastElementChild.style.visibility = "visible"),
               inputTask.focus())
             : (buttons.lastElementChild.style.visibility = "hidden");
-
-        let priority = document.querySelector(".cotainer__button_task");
-        priority.addEventListener("click", function (e) {
-            console.log(e.target.className);
-        });
-
-        
     });
+
+//выбор приоритета и передача его инпутут
+let buttonAddTask = document
+    .querySelector(".button__add-task")
+    .addEventListener("click", function (e) {
+
+        if (e.target.classList[1] != undefined) {
+
+            priority = e.target.classList[1];
+
+        }
+    });
+
+let priority = "";
 
 let inputTask = document.querySelector(".input-task");
 let buttonSent = document.querySelector(".button-sent");
 
 // реагирует на нажатие ПКМ
 buttonSent.addEventListener("click", function (e) {
-    createTagsforTasksButton();
-
+    if (priority == "") {
+        priority = "priority-0";
+    }
+    createTagsforTasksButton(priority);
+    priority = "";
 });
 
 inputTask.addEventListener("keydown", function (e) {
-    if (e.key == "Enter") {
-        createTagsforTasksButton();
+    if (priority == "") {
+        priority = "priority-0";
     }
+    if (e.key == "Enter") {
+        createTagsforTasksButton(priority);
+    }
+    priority = "";
 });
 
 //функция создающая теги ли в которых назодится чекбокс, лейбл, и баттон удаления таска
-function createTagsforTasksButton() {
+function createTagsforTasksButton(elem) {
     let li = document.createElement(`li`);
     let input = document.createElement("input");
     let closeButton = document.createElement("button");
     let label = document.createElement("label");
+    let p = document.createElement("p");
 
     //генерируем случайное имя для li
     var checkIdRandomName = Math.random().toString(36).substr(2, 5);
@@ -71,8 +86,11 @@ function createTagsforTasksButton() {
     closeButton.type = "button";
     closeButton.classList.add("close");
 
+    label.classList.add(elem);
+
     // читаем значение и добавялем в ли
-    label.innerText = inputTask.value;
+    p.innerText = inputTask.value;
+    label.prepend(p);
     li.prepend(input, label);
     li.append(closeButton);
     ul.appendChild(li);

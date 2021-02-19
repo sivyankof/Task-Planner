@@ -160,32 +160,45 @@ div .cotainer__button_task {
     width: 60%;
     align-self: center;
     max-width: 300px;
+
 }
 .cotainer__button_task p {
     color: rgba(0, 0, 0, 0.699);
     margin-top: 0px;
     margin-bottom: 0;
     align-self: center;
+    cursor:auto;
+}
+.cotainer__button_task  input{
+    cursor: pointer;
 }
 
 .priority-none {
-    color: grey;
     font-size: 2rem;
+    color: grey;
     border: none;
     background-color: initial;
 }
-
+.priority-0::before  {
+    color: grey;
+}
 .priority-low {
-    color: dodgerblue;
     font-size: 2rem;
+    color: dodgerblue;
     border: none;
     background-color: initial;
+}
+.priority-1::before  {
+    color: dodgerblue;
 }
 .priority-medium {
-    color: darkorange;
     font-size: 2rem;
+    color: darkorange;
     border: none;
     background-color: initial;
+}
+.priority-2::before  {
+    color: darkorange;
 }
 .priority-high {
     color: crimson;
@@ -193,6 +206,10 @@ div .cotainer__button_task {
     border: none;
     background-color: initial;
 }
+.priority-3::before {
+    color: crimson;
+}
+
 .priority-none:focus,
 .priority-low:focus,
 .priority-medium:focus,
@@ -208,6 +225,7 @@ div .cotainer__button_task {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    cursor: auto;
 }
 
 .close {
@@ -239,14 +257,18 @@ input[type="checkbox"] {
 .list-container label::before {
     content: "\f096";
     font-family: FontAwesome;
-    color: rgba(0, 0, 0, 0.712);
+    /* color: black; */
     font-size: 20px;
     margin: 0 15px 0 10px;
 }
 .list-container label {
+    display: flex;
     text-overflow: ellipsis;
     overflow: hidden;
     padding-right: 25px;
+}
+.list-container label p {
+    margin: 0;
 }
 
 .list-container input[type="checkbox"]:checked + label::before {
