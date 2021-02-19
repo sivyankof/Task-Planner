@@ -26,13 +26,17 @@ let buttonAddTask = document
     .querySelector(".add-task")
     .addEventListener("click", function (e) {
         //если окошко с было скрыто, отображаем его, если открыто, то скрывает
-        if (buttons.lastElementChild.style.visibility == "hidden") {
-            buttons.lastElementChild.style.visibility = "visible";
-            inputTask.focus();
-        } else {
-            buttons.lastElementChild.style.visibility = "hidden";
-        }
-        e.preventDefault();
+        buttons.lastElementChild.style.visibility == "hidden"
+            ? ((buttons.lastElementChild.style.visibility = "visible"),
+              inputTask.focus())
+            : (buttons.lastElementChild.style.visibility = "hidden");
+
+        let priority = document.querySelector(".cotainer__button_task");
+        priority.addEventListener("click", function (e) {
+            console.log(e.target.className);
+        });
+
+        
     });
 
 let inputTask = document.querySelector(".input-task");
@@ -40,10 +44,21 @@ let buttonSent = document.querySelector(".button-sent");
 
 // реагирует на нажатие ПКМ
 buttonSent.addEventListener("click", function (e) {
+    createTagsforTasksButton();
+
+});
+
+inputTask.addEventListener("keydown", function (e) {
+    if (e.key == "Enter") {
+        createTagsforTasksButton();
+    }
+});
+
+//функция создающая теги ли в которых назодится чекбокс, лейбл, и баттон удаления таска
+function createTagsforTasksButton() {
     let li = document.createElement(`li`);
     let input = document.createElement("input");
     let closeButton = document.createElement("button");
-    let closeBlur = document.createElement("button");
     let label = document.createElement("label");
 
     //генерируем случайное имя для li
@@ -54,48 +69,16 @@ buttonSent.addEventListener("click", function (e) {
     // добавляем атрибуты
     input.type = "checkbox";
     closeButton.type = "button";
-    closeBlur.type = "button";
     closeButton.classList.add("close");
-    closeBlur.classList.add("closeBlur");
 
     // читаем значение и добавялем в ли
     label.innerText = inputTask.value;
     li.prepend(input, label);
-    li.append(closeButton, closeBlur);
+    li.append(closeButton);
     ul.appendChild(li);
     inputTask.value = "";
     buttons.lastElementChild.style.visibility = "hidden";
-});
-inputTask.addEventListener("keydown", function (e) {
-
-    if (e.key == "Enter") {
-        let li = document.createElement(`li`);
-        let input = document.createElement("input");
-        let closeButton = document.createElement("button");
-        let closeBlur = document.createElement("button");
-        let label = document.createElement("label");
-
-        //генерируем случайное имя для li
-        var checkIdRandomName = Math.random().toString(36).substr(2, 5);
-        input.setAttribute("id", checkIdRandomName);
-        label.setAttribute("for", checkIdRandomName);
-
-        // добавляем атрибуты
-        input.type = "checkbox";
-        closeButton.type = "button";
-        closeBlur.type = "button";
-        closeButton.classList.add("close");
-        closeBlur.classList.add("closeBlur");
-
-        // читаем значение и добавялем в ли
-        label.innerText = inputTask.value;
-        li.prepend(input, label);
-        li.append(closeButton, closeBlur);
-        ul.appendChild(li);
-        inputTask.value = "";
-        buttons.lastElementChild.style.visibility = "hidden";
-    }
-});
+}
 
 //Анимация через Class по сворачиванию списка. При клике на hide элементы (li) плавно перемещаются на в лево
 //(добавляя класс move)

@@ -5,6 +5,10 @@ body {
     font-size: 1.6rem;
     font-family: "Roboto", sans-serif;
 }
+h2 {
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+}
 .wrap {
     display: block;
     margin: 0 auto 0 auto;
@@ -63,11 +67,12 @@ li {
     position: relative;
     z-index: 1;
     border-bottom: solid 1px rgba(128, 128, 128, 0.39);
+    border-radius: 10px;
     min-width: 300px;
     max-width: 500px;
     height: 2em;
     left: 0px;
-    font-size: 2rem;
+    font-size: 1.6rem;
     list-style-position: inside;
     list-style-type: none;
     cursor: pointer;
@@ -75,6 +80,11 @@ li {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    font-weight: 300;
+}
+li:hover {
+    background-color: rgba(218, 218, 218, 0.253);
+    transition-duration: 0s;
 }
 
 div .title {
@@ -88,18 +98,18 @@ div .title {
     transition: 1s;
 }
 
-
 .button__add-task {
     position: absolute;
     display: flex;
     flex-direction: column;
     left: 30vw;
     z-index: 10;
-    padding: 20px;
+    padding: 10px;
+    /* padding-bottom: 5px; */
     width: 40vmax;
     height: max-content;
     border: 1px solid rgb(196 196 196 / 11%);
-    border-radius: 5px;
+    border-radius: 10px;
     opacity: 1;
     background-color: rgb(241 241 241);
     box-shadow: 5px 12px 21px -10px rgb(0 0 0 / 25%);
@@ -109,7 +119,7 @@ div .title {
 
 .input-task {
     display: block;
-    font-size: 2rem;
+    font-size: 1.6rem;
     width: 95%;
     height: 4rem;
     border: none;
@@ -117,12 +127,14 @@ div .title {
     outline: none;
     padding-left: 10px;
     padding-right: 10px;
+    font-weight: 300;
+    font-family: "Roboto", sans-serif;
 }
 
 .button-sent {
     cursor: pointer;
     align-self: flex-end;
-    margin-top: 10px;
+    margin-top: 15px;
     width: 10px;
     background-color: rgb(241 241 241);
     border: none;
@@ -136,8 +148,66 @@ div .title {
     color: teal;
     font-size: 26px;
     left: 10px;
-    left: -10px;
+    left: -15px;
     position: relative;
+}
+
+div .cotainer__button_task {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 60%;
+    align-self: center;
+    max-width: 300px;
+}
+.cotainer__button_task p {
+    color: rgba(0, 0, 0, 0.699);
+    margin-top: 0px;
+    margin-bottom: 0;
+    align-self: center;
+}
+
+.priority-none {
+    color: grey;
+    font-size: 2rem;
+    border: none;
+    background-color: initial;
+}
+
+.priority-low {
+    color: dodgerblue;
+    font-size: 2rem;
+    border: none;
+    background-color: initial;
+}
+.priority-medium {
+    color: darkorange;
+    font-size: 2rem;
+    border: none;
+    background-color: initial;
+}
+.priority-high {
+    color: crimson;
+    font-size: 2rem;
+    border: none;
+    background-color: initial;
+}
+.priority-none:focus,
+.priority-low:focus,
+.priority-medium:focus,
+.priority-high:focus {
+    background-color: rgba(128, 128, 128, 0.199);
+    outline: none;
+    cursor: pointer;
+    border-radius: 2px;
+    /* width: 25px; */
+}
+
+.button__add-task .wrap-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .close {
@@ -162,60 +232,30 @@ div .title {
     opacity: 1;
 }
 
-.closeBlur {
-    position: absolute;
-    right: -1em;
-    border: none;
-    outline: none;
-    background-color: white;
-    z-index: 2;
-    width: 5em;
-    height: 5em;
-    -webkit-filter: blur(10px);
-    -moz-filter: blur(10px);
-    -o-filter: blur(10px);
-    -ms-filter: blur(10px);
-    filter: blur(3px);
-}
-
-
 input[type="checkbox"] {
     display: none;
 }
 
-.list-container label::before{
+.list-container label::before {
     content: "\f096";
     font-family: FontAwesome;
     color: rgba(0, 0, 0, 0.712);
     font-size: 20px;
     margin: 0 15px 0 10px;
-
+}
+.list-container label {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding-right: 25px;
 }
 
-
-.list-container input[type=checkbox]:checked + label::before{
+.list-container input[type="checkbox"]:checked + label::before {
     content: "\f046";
     font-family: FontAwesome;
     color: #c3c3c3ec;
     font-size: 20px;
     margin: 0 12px 0 10px;
 }
-.list-container input[checked] + label{
+.list-container input[checked] + label {
     color: #c3c3c3ec;
 }
-/* 
-
-.checkBoxEmpty {
-    content: "\f096";
-    font-family: FontAwesome;
-    color: blue;
-    font-size: 20px;
-}
-
-.checkBoxChecked {
-    content: "\f046";
-    font-family: FontAwesome;
-    color: gray;
-    font-size: 20px;
-    margin: 0 10px 0 10px;
-} */
