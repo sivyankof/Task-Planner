@@ -19,6 +19,7 @@
 
     <body>
         <div class="wrap">
+            <h1 class="title">Список дел:</h1>
             <div class="buttons-container">
                 <button class="add-task" type="button" value="add">
                     Добавить задачу
@@ -40,31 +41,24 @@
                         <div class="cotainer__button_task">
                             <p>Приоритет:</p>
                             <input
-                                class="priority-high priority-3"
+                                class="high-priority priority-3"
                                 type="button"
                                 value="!!!"
                                 title="Высокий приоритет"
                             />
 
                             <input
-                                class="priority-medium priority-2"
+                                class="medium-priority priority-2"
                                 type="button"
                                 value="!!"
                                 title="Средний приоритет"
                             />
 
                             <input
-                                class="priority-low priority-1"
+                                class="low-priority priority-1"
                                 type="button"
                                 value="!"
                                 title="Низкий приоритет"
-                            />
-
-                            <input
-                                class="priority-none priority-0"
-                                type="button"
-                                value="!!!"
-                                title="Без приоритета"
                             />
                         </div>
 
@@ -74,8 +68,34 @@
             </div>
 
             <div class="list-container show">
-                <h2 class="title">Список дел:</h2>
-                <ul></ul>
+                <div class="low-priority">
+                    <h3>Низкий приоритет</h3>
+                    <ul class="list-items low-priority" id="low-priority">
+                        <li>
+                            <input id="lc42z" type="checkbox" /><label
+                                for="lc42z"
+                                class="priority-1"
+                                ><p>dsfasdfasfd</p></label
+                            ><button type="button" class="close"></button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="medium-priority">
+                    <h3>Средний приоритет</h3>
+                    <ul
+                        class="list-items medium-priority"
+                        id="medium-priority"
+                    ></ul>
+                </div>
+
+                <div class="high-priority">
+                    <h3>Высокий приоритет</h3>
+                    <ul
+                        class="list-items high-priority"
+                        id="high-priority"
+                    ></ul>
+                </div>
             </div>
         </div>
         <script src="./assets/scripts/script.js"></script>

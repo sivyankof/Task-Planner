@@ -40,9 +40,11 @@ let buttonAddTask = document
     .addEventListener("click", function (e) {
         if (e.target.classList[1] != undefined) {
             priority = e.target.classList[1];
+            priorityName = e.target.classList[0];
         }
     });
 
+let priorityName = "";
 let priority = "";
 
 let inputTask = document.querySelector(".input-task");
@@ -51,24 +53,26 @@ let buttonSent = document.querySelector(".button-sent");
 // реагирует на нажатие ПКМ
 buttonSent.addEventListener("click", function (e) {
     if (priority == "") {
-        priority = "priority-0";
+        priority = "priority-1";
+        priorityName = "low-priority";
     }
-    createTagsforTasksButton(priority);
+    createTagsforTasksButton(priority, priorityName);
     priority = "";
 });
 
 inputTask.addEventListener("keydown", function (e) {
     if (priority == "") {
-        priority = "priority-0";
+        priority = "priority-1";
+        priorityName = "low-priority";
     }
     if (e.key == "Enter") {
-        createTagsforTasksButton(priority);
+        createTagsforTasksButton(priority, priorityName);
     }
     priority = "";
 });
 
-//функция создающая теги ли в которых назодится чекбокс, лейбл, и баттон удаления таска
-function createTagsforTasksButton(elem) {
+//функция создающая теги ли в которых находится чекбокс, лейбл и баттон удаления таска
+function createTagsforTasksButton(elem, name) {
     let li = document.createElement(`li`);
     let input = document.createElement("input");
     let closeButton = document.createElement("button");
@@ -85,6 +89,8 @@ function createTagsforTasksButton(elem) {
     closeButton.type = "button";
     closeButton.classList.add("close");
 
+    let namePriorityUl = document.getElementById(name);
+
     label.classList.add(elem);
 
     // читаем значение и добавялем в ли
@@ -92,9 +98,14 @@ function createTagsforTasksButton(elem) {
     label.prepend(p);
     li.prepend(input, label);
     li.append(closeButton);
-    ul.appendChild(li);
+    namePriorityUl.appendChild(li);
     inputTask.value = "";
     buttons.lastElementChild.style.visibility = "hidden";
+
+
+    localStorage.setItem("lowTask",lowPriority[1].innerHTML );
+    localStorage.setItem("mediumTask",mediumPriority[1].innerHTML );
+    localStorage.setItem("hightTask",highPriority[1].innerHTML );
 }
 
 //Анимация через Class по сворачиванию списка. При клике на hide элементы (li) плавно перемещаются на в лево
@@ -130,37 +141,58 @@ lists.addEventListener("click", function (e) {
 lists.addEventListener("click", function (e) {
     if (e.target.className == "close") {
         e.target.parentNode.remove();
+
+        localStorage.setItem("lowTask",lowPriority[1].innerHTML );
+        localStorage.setItem("mediumTask",mediumPriority[1].innerHTML );
+        localStorage.setItem("hightTask",highPriority[1].innerHTML );
     }
 });
 
 // Наюблюдаем за изменением блока UL, для помещения актуальной инфо в local
 // Конфигурация observer (за какими изменениями наблюдать)
-const config = {
-    attributes: true,
-    childList: true,
-    subtree: true,
-};
+// const config = {
+//     attributes: true,
+//     childList: true,
+//     subtree: true,
+// };
 
-// Функция обратного вызова при срабатывании мутации
-const callback = function (mutationsList, observer) {
-    for (let mutation of mutationsList) {
-        if (mutation.type === "childList") {
-            //если был измененн тип, то добавляем его в локал
-            localStorage.setItem("tasks", ul.innerHTML);
-        } else if (mutation.type === "attributes") {
-            //если был измененн атрибут, то добавляем его в локал
-            localStorage.setItem("tasks", ul.innerHTML);
-        }
-    }
-};
+// const listContainer = document.getElementsByClassName("list-container");
+// // Функция обратного вызова при срабатывании мутации
+// const callback = function (mutationsList, observer) {
+//     console.log(listContainer[0].children)
+//     let a = listContainer[0].children
 
-// Создаем экземпляр наблюдателя с указанной функцией обратного вызова
-const observer = new MutationObserver(callback);
+//     for (let mutation of mutationsList) {
+//         if (mutation.type === "childList") {
+//             //если был измененн тип, то добавляем его в локал
+//             localStorage.setItem("tasks", a.innerHTML);
+//         } else if (mutation.type === "attributes") {
+//             //если был измененн атрибут, то добавляем его в локал
+//             localStorage.setItem("tasks", a.innerHTML);
+//         }
+//     }
+// };
 
-// Начинаем наблюдение за настроенными изменениями целевого элемента
-observer.observe(lists, config);
+// // Создаем экземпляр наблюдателя с указанной функцией обратного вызова
+// const observer = new MutationObserver(callback);
 
-//извлекаю задачи из локал
+// // Начинаем наблюдение за настроенными изменениями целевого элемента
+// observer.observe(lists, config);
+
+// //извлекаю задачи из локал
+// window.addEventListener("load", function () {
+//     listContainer.innerHTML = localStorage.getItem("tasks");
+// });
+
+const lowPriority = lists.getElementsByClassName("low-priority");
+const mediumPriority = lists.getElementsByClassName("medium-priority");
+const highPriority = lists.getElementsByClassName("high-priority");
+
+
+
+// //извлекаю задачи из локал
 window.addEventListener("load", function () {
-    ul.innerHTML = localStorage.getItem("tasks");
+    lowPriority[1].innerHTML = localStorage.getItem("lowTask");
+    mediumPriority[1].innerHTML = localStorage.getItem("mediumTask");
+    highPriority[1].innerHTML = localStorage.getItem("hightTask");
 });

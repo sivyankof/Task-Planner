@@ -4,11 +4,10 @@ html {
 body {
     font-size: 1.6rem;
     font-family: "Roboto", sans-serif;
+    background-image: linear-gradient(135deg, #7d5fff, #543bc3);
+    height: 100vh;
 }
-h2 {
-    font-family: "Roboto", sans-serif;
-    font-weight: 300;
-}
+
 .wrap {
     display: block;
     margin: 0 auto 0 auto;
@@ -25,7 +24,7 @@ h2 {
     padding: 10px;
     margin: 10px 0 0 15px;
     font-size: 1.6rem;
-    opacity: 0.4;
+    opacity: 0.9;
     box-shadow: 8px 9px 5px -4px rgb(0 0 0 / 0.4%);
     -webkit-box-shadow: 9px 8px 10px -3px rgb(0 0 0 / 42%);
     -moz-box-shadow: 10px 10px 5px -3px rgba(0, 0, 0, 0.42);
@@ -44,17 +43,23 @@ button[data-action="hide"] {
 }
 
 .active {
-    opacity: 0.9;
+    opacity: 1;
 }
 
 div.list-container {
+    display: flex;
     transition: 0.5s ease-out;
-    display: block;
-    margin: 0 auto;
-    max-width: 500px;
+    justify-content: center;
+    margin-top: 10px;
+    /* display: block; */
+    /* margin: 0 auto;
+    max-width: 900px; */
 }
 .list-container ul {
     padding: 0;
+}
+.list-container div {
+    width: 20em;
 }
 
 div.hide {
@@ -65,14 +70,14 @@ li {
     display: flex;
     align-items: center;
     position: relative;
-    z-index: 1;
+    /* z-index: 1; */
     border-bottom: solid 1px rgba(128, 128, 128, 0.39);
-    border-radius: 10px;
+    border-radius: 15px;
     min-width: 300px;
     max-width: 500px;
     height: 2em;
     left: 0px;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     list-style-position: inside;
     list-style-type: none;
     cursor: pointer;
@@ -81,14 +86,50 @@ li {
     white-space: nowrap;
     text-overflow: ellipsis;
     font-weight: 300;
+    background-color: white;
+    margin-bottom: 8px;
 }
-li:hover {
-    background-color: rgba(218, 218, 218, 0.253);
+/* li:hover {
+    background-color: rgba(218, 218, 218, 0.950);
     transition-duration: 0s;
+} */
+.low-priority {
+    background-color: lavender;
+    border-radius: 15px;
+    padding: 10px;
+    margin: 10px 10px 0 0;
+    outline: none;
 }
+.low-priority ul {
+    border-left: solid 5px;
+    border-left-color: dodgerblue;
+}
+.medium-priority {
+    background-color: lavender;
+    border-radius: 15px;
+    padding: 10px;
+    margin: 10px 10px 0 0;
+    outline: none;
+}
+.medium-priority ul {
+    border-left: solid 5px;
+    border-left-color: darkorange;
+}
+.high-priority {
+    background-color: lavender;
+    border-radius: 15px;
+    padding: 10px;
+    margin: 10px 10px 0 0;
+    outline: none;
+}
+.high-priority ul {
+    border-left: solid 5px;
+    border-left-color: crimson;
+} f
 
 div .title {
     padding-left: 40px;
+    margin-bottom: 0;
 }
 
 .move {
@@ -96,19 +137,20 @@ div .title {
     height: 0px;
     opacity: 0;
     transition: 1s;
+    margin: 0;
 }
 
 .button__add-task {
     position: absolute;
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
     left: 30vw;
     z-index: 10;
     padding: 10px;
     /* padding-bottom: 5px; */
     width: 40vmax;
     height: max-content;
-    border: 1px solid rgb(196 196 196 / 11%);
+    /* border: 1px solid rgb(196 196 196 / 11%); */
     border-radius: 10px;
     opacity: 1;
     background-color: rgb(241 241 241);
@@ -160,47 +202,37 @@ div .cotainer__button_task {
     width: 60%;
     align-self: center;
     max-width: 300px;
-
 }
 .cotainer__button_task p {
     color: rgba(0, 0, 0, 0.699);
     margin-top: 0px;
     margin-bottom: 0;
     align-self: center;
-    cursor:auto;
+    cursor: auto;
 }
-.cotainer__button_task  input{
+.cotainer__button_task input {
     cursor: pointer;
 }
 
-.priority-none {
-    font-size: 2rem;
-    color: grey;
-    border: none;
-    background-color: initial;
-}
-.priority-0::before  {
-    color: grey;
-}
-.priority-low {
+.cotainer__button_task .low-priority {
     font-size: 2rem;
     color: dodgerblue;
     border: none;
     background-color: initial;
 }
-.priority-1::before  {
+.priority-1::before {
     color: dodgerblue;
 }
-.priority-medium {
+.cotainer__button_task .medium-priority {
     font-size: 2rem;
     color: darkorange;
     border: none;
     background-color: initial;
 }
-.priority-2::before  {
+.priority-2::before {
     color: darkorange;
 }
-.priority-high {
+.cotainer__button_task .high-priority {
     color: crimson;
     font-size: 2rem;
     border: none;
