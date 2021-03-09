@@ -1,8 +1,9 @@
+import './styles/style.css';
+
 const buttons = document.querySelector(".buttons-container");
 const lists = document.querySelector(`.list-container`);
 const li = document.getElementsByTagName(`li`);
 let ul = document.querySelector(`ul`);
-let body = document.querySelector(`body`);
 
 let selectedBtn;
 
@@ -148,41 +149,6 @@ lists.addEventListener("click", function (e) {
     }
 });
 
-// Наюблюдаем за изменением блока UL, для помещения актуальной инфо в local
-// Конфигурация observer (за какими изменениями наблюдать)
-// const config = {
-//     attributes: true,
-//     childList: true,
-//     subtree: true,
-// };
-
-// const listContainer = document.getElementsByClassName("list-container");
-// // Функция обратного вызова при срабатывании мутации
-// const callback = function (mutationsList, observer) {
-//     console.log(listContainer[0].children)
-//     let a = listContainer[0].children
-
-//     for (let mutation of mutationsList) {
-//         if (mutation.type === "childList") {
-//             //если был измененн тип, то добавляем его в локал
-//             localStorage.setItem("tasks", a.innerHTML);
-//         } else if (mutation.type === "attributes") {
-//             //если был измененн атрибут, то добавляем его в локал
-//             localStorage.setItem("tasks", a.innerHTML);
-//         }
-//     }
-// };
-
-// // Создаем экземпляр наблюдателя с указанной функцией обратного вызова
-// const observer = new MutationObserver(callback);
-
-// // Начинаем наблюдение за настроенными изменениями целевого элемента
-// observer.observe(lists, config);
-
-// //извлекаю задачи из локал
-// window.addEventListener("load", function () {
-//     listContainer.innerHTML = localStorage.getItem("tasks");
-// });
 
 const lowPriority = lists.getElementsByClassName("low-priority");
 const mediumPriority = lists.getElementsByClassName("medium-priority");
