@@ -1,11 +1,20 @@
 html {
     font-size: 10px;
 }
+* {
+    box-sizing: border-box;
+}
 body {
     font-size: 1.6rem;
     font-family: "Roboto", sans-serif;
     background-image: linear-gradient(135deg, #7d5fff, #543bc3);
     height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    margin: 0;
 }
 
 .wrap {
@@ -14,53 +23,45 @@ body {
     text-align: center;
 }
 
-.buttons-container > * {
+.buttons-container {
+    display: flex;
+    position: relative;
     outline: none;
     cursor: pointer;
-    min-width: 200px;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    padding: 10px;
-    margin: 10px 0 0 15px;
-    font-size: 1.6rem;
-    opacity: 0.9;
-    box-shadow: 8px 9px 5px -4px rgb(0 0 0 / 0.4%);
-    -webkit-box-shadow: 9px 8px 10px -3px rgb(0 0 0 / 42%);
-    -moz-box-shadow: 10px 10px 5px -3px rgba(0, 0, 0, 0.42);
 }
 
-button[data-action="show"] {
-    background-color: red;
+.add-task {
+    background: #fff;
+    border: 0;
+    cursor: pointer;
+    font-size: 24px;
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 50px;
+    width: 50px;
+    outline: none;
+}
+.add-task i {
+    pointer-events: none;
+    transition: 0.8s;
 }
 
-button[data-action="hide"] {
-    background-color: gray;
-}
-
-.buttons-container .add-task {
-    background-color: rebeccapurple;
-}
-
-.active {
-    opacity: 1;
+.iconClosetransform {
+    transform: rotate(45deg);
 }
 
 div.list-container {
     display: flex;
     transition: 0.5s ease-out;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: 30px;
 }
 .list-container ul {
     padding: 0;
 }
 .list-container div {
     width: 20em;
-}
-
-div.hide {
-    height: 50px;
 }
 
 li {
@@ -72,18 +73,17 @@ li {
     min-width: 300px;
     max-width: 500px;
     height: 2em;
-    left: 0px;
     font-size: 1.5rem;
     list-style-position: inside;
     list-style-type: none;
     cursor: pointer;
-    transition: 1s;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    font-weight: 300;
     background-color: white;
     margin-bottom: 8px;
+    opacity: 1;
+    transition: 1s;
 }
 
 .low-priority {
@@ -119,36 +119,31 @@ li {
     border-left: solid 5px;
     border-left-color: crimson;
 }
-f div .title {
-    padding-left: 40px;
-    margin-bottom: 0;
-}
 
 .move {
-    left: 300px;
-    height: 0px;
+    height: 0em;
     opacity: 0;
-    transition: 1s;
+    transition:  1s;
     margin: 0;
 }
 
 .button__add-task {
-    position: absolute;
-    /* display: flex;
-    flex-direction: column; */
-    left: 30vw;
-    z-index: 10;
-    padding: 10px;
-    /* padding-bottom: 5px; */
-    width: 40vmax;
-    height: max-content;
-    /* border: 1px solid rgb(196 196 196 / 11%); */
-    border-radius: 10px;
-    opacity: 1;
-    background-color: rgb(241 241 241);
+    display: flex;
+    position: relative;
+    align-items: center;
+    overflow: hidden;
+    width: 0vmax;
+    height: 50px;
+    background-color: white;
     box-shadow: 5px 12px 21px -10px rgb(0 0 0 / 25%);
     -webkit-box-shadow: 5px 12px 21px -10px rgb(0 0 0 / 25%);
     -moz-box-shadow: 5px 12px 21px -10px rgb(0 0 0 / 25%);
+    transition: 1s;
+}
+
+.inputTaskLong {
+    width: 40vmax;
+    transition: width 1s;
 }
 
 .input-task {
@@ -165,36 +160,14 @@ f div .title {
     font-family: "Roboto", sans-serif;
 }
 
-.button-sent {
-    cursor: pointer;
-    align-self: flex-end;
-    margin-top: 15px;
-    width: 10px;
-    background-color: rgb(241 241 241);
-    border: none;
-    outline: none;
+div .cotainer__button_task {
+    display: flex;
     margin-right: 10px;
 }
-
-.button-sent::after {
-    content: "\f1d8";
-    font-family: FontAwesome;
-    color: teal;
-    font-size: 26px;
-    left: 10px;
-    left: -15px;
-    position: relative;
+.cotainer__button_task > * {
+    margin: 0;
 }
 
-div .cotainer__button_task {
-    margin-top: 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 60%;
-    align-self: center;
-    max-width: 300px;
-}
 .cotainer__button_task p {
     color: rgba(0, 0, 0, 0.699);
     margin-top: 0px;
@@ -211,6 +184,7 @@ div .cotainer__button_task {
     color: dodgerblue;
     border: none;
     background-color: initial;
+    width: 40px;
 }
 .priority-1::before {
     color: dodgerblue;
@@ -220,6 +194,7 @@ div .cotainer__button_task {
     color: darkorange;
     border: none;
     background-color: initial;
+    width: 40px;
 }
 .priority-2::before {
     color: darkorange;
@@ -229,20 +204,18 @@ div .cotainer__button_task {
     font-size: 2rem;
     border: none;
     background-color: initial;
+    width: 40px;
 }
 .priority-3::before {
     color: crimson;
 }
 
-.priority-none:focus,
-.priority-low:focus,
-.priority-medium:focus,
-.priority-high:focus {
-    background-color: rgba(128, 128, 128, 0.199);
-    outline: none;
-    cursor: pointer;
-    border-radius: 2px;
-    /* width: 25px; */
+.cotainer__button_task .priority-1:hover,
+.cotainer__button_task .priority-2:hover,
+.cotainer__button_task .priority-3:hover {
+    background-color: rgb(218, 218, 218);
+    border-radius: 0;
+
 }
 
 .button__add-task .wrap-button {

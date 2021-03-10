@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const webpack = require("webpack");
 
 const config = {
     entry: "./src/index.js",
@@ -16,6 +17,7 @@ const config = {
             filename: "index.html", //
         }),
         new CleanWebpackPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
     ],
     module: {
         rules: [
@@ -34,6 +36,14 @@ const config = {
             },
             { test: /\.css$/, use: ["style-loader", "css-loader"] },
         ],
+    },
+    devServer: {
+        historyApiFallback: true,
+        contentBase: path.resolve(__dirname, "./dist"),
+        open: true,
+        compress: true,
+        hot: true,
+        port: 8080,
     },
 };
 

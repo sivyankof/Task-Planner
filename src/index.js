@@ -1,26 +1,16 @@
-import './styles/style.css';
+import "./styles/style.css";
 
 const buttons = document.querySelector(".buttons-container");
 const lists = document.querySelector(`.list-container`);
 const li = document.getElementsByTagName(`li`);
-let ul = document.querySelector(`ul`);
 
-let selectedBtn;
+// элементы для создание хранения в локале
+const lowPriority = lists.getElementsByClassName("low-priority");
+const mediumPriority = lists.getElementsByClassName("medium-priority");
+const highPriority = lists.getElementsByClassName("high-priority");
 
-// При клики на кнопку срабатывает таргет и меняеться цвет кнопки и открывается список
-buttons.addEventListener(`click`, function (event) {
-    let target = event.target;
-
-    if (target.dataset.action == "show") {
-        target.classList.remove("active");
-        target.nextElementSibling.classList.add("active");
-    }
-
-    if (target.dataset.action == "hide") {
-        target.classList.remove("active");
-        target.previousElementSibling.classList.add("active");
-    }
-});
+let inputTask = document.querySelector(".input-task");
+// let buttonSent = document.querySelector(".button-sent");
 
 // кликаю по кнопке "добавление новой задачи"
 let AddTask = document
@@ -28,15 +18,21 @@ let AddTask = document
     .addEventListener("click", hideAndVisiblebuttonTask);
 
 function hideAndVisiblebuttonTask(e) {
-    //если окошко с было скрыто, отображаем его, если открыто, то скрывает
-    buttons.lastElementChild.style.visibility == "hidden"
-        ? ((buttons.lastElementChild.style.visibility = "visible"),
+    let AddTask = document.querySelector(".add-task");
+
+    inputTask.parentElement.style.visibility == "hidden"
+        ? ((inputTask.parentElement.style.visibility = "visible"),
+          inputTask.parentElement.classList.add("inputTaskLong"),
+          AddTask.firstElementChild.classList.add("iconClosetransform"),
           inputTask.focus())
-        : (buttons.lastElementChild.style.visibility = "hidden");
+        : ((inputTask.parentElement.style.visibility = "hidden"),
+          inputTask.parentElement.classList.remove("inputTaskLong"),
+          AddTask.firstElementChild.classList.remove("iconClosetransform"),
+          inputTask.value = "");
 }
 
-//выбор приоритета и передача его инпутут
-let buttonAddTask = document
+// выбор приоритета и передача его инпутут
+document
     .querySelector(".button__add-task")
     .addEventListener("click", function (e) {
         if (e.target.classList[1] != undefined) {
@@ -48,32 +44,37 @@ let buttonAddTask = document
 let priorityName = "";
 let priority = "";
 
-let inputTask = document.querySelector(".input-task");
-let buttonSent = document.querySelector(".button-sent");
-
-// реагирует на нажатие ПКМ
-buttonSent.addEventListener("click", function (e) {
-    if (priority == "") {
-        priority = "priority-1";
-        priorityName = "low-priority";
+// // создает новую задачу через клик
+// buttonSent.addEventListener("click", function (e) {
+//     if (priority == "") {
+//         priority = "priority-1";
+//         priorityName = "low-priority";
+//     }
+//     createTagsforTasksButton(priority, priorityName);
+//     priority = "";
+// });
+// создает новую задачу через Enter
+document.addEventListener("keydown", function (e) {
+    let buttonAddTask = document.querySelector(".button__add-task");
+    if (buttonAddTask.classList.contains("inputTaskLong")) {
+        if (priority == "") {
+            priority = "priority-1";
+            priorityName = "low-priority";
+        }
+        if (e.key == "Enter") {
+            createTagsforTasksButton(priority, priorityName);
+        }
+        priority = "";
     }
-    createTagsforTasksButton(priority, priorityName);
-    priority = "";
-});
-
-inputTask.addEventListener("keydown", function (e) {
-    if (priority == "") {
-        priority = "priority-1";
-        priorityName = "low-priority";
-    }
-    if (e.key == "Enter") {
-        createTagsforTasksButton(priority, priorityName);
-    }
-    priority = "";
 });
 
 //функция создающая теги ли в которых находится чекбокс, лейбл и баттон удаления таска
 function createTagsforTasksButton(elem, name) {
+    if (inputTask.value.length == 0 || inputTask.value.trim() == 0) {
+        inputTask.value = "";
+        return;
+    }
+
     let li = document.createElement(`li`);
     let input = document.createElement("input");
     let closeButton = document.createElement("button");
@@ -101,32 +102,36 @@ function createTagsforTasksButton(elem, name) {
     li.append(closeButton);
     namePriorityUl.appendChild(li);
     inputTask.value = "";
-    buttons.lastElementChild.style.visibility = "hidden";
 
-
-    localStorage.setItem("lowTask",lowPriority[1].innerHTML );
-    localStorage.setItem("mediumTask",mediumPriority[1].innerHTML );
-    localStorage.setItem("hightTask",highPriority[1].innerHTML );
+    localStorage.setItem("lowTask", lowPriority[1].innerHTML);
+    localStorage.setItem("mediumTask", mediumPriority[1].innerHTML);
+    localStorage.setItem("hightTask", highPriority[1].innerHTML);
 }
 
-//Анимация через Class по сворачиванию списка. При клике на hide элементы (li) плавно перемещаются на в лево
-//(добавляя класс move)
+document.addEventListener("click", hideShoweListsColums);
 
-buttons.addEventListener(`click`, addAndRemoveClass);
+function hideShoweListsColums(e) {
+    if (e.target.tagName === "H3") {
+        hideShow(e.target.parentElement.classList[0], e.target);
+    }
+}
 
-function addAndRemoveClass(event) {
-    let target = event.target;
+function hideShow(name, target) {
+    let li = document.getElementById(name).getElementsByTagName("li");
 
-    if (target.dataset.action === `hide`) {
+    if (target.dataset.action === `show`) {
         for (let e of li) {
             if (e.firstElementChild.checked !== true) {
                 e.classList.add(`move`);
             }
         }
-    } else if (target.dataset.action === `show`) {
+        target.dataset.action = `hide`;
+    } else if (target.dataset.action === `hide`) {
         for (let e of li) {
             e.classList.remove(`move`);
         }
+
+        target.dataset.action = `show`;
     }
 }
 
@@ -143,18 +148,11 @@ lists.addEventListener("click", function (e) {
     if (e.target.className == "close") {
         e.target.parentNode.remove();
 
-        localStorage.setItem("lowTask",lowPriority[1].innerHTML );
-        localStorage.setItem("mediumTask",mediumPriority[1].innerHTML );
-        localStorage.setItem("hightTask",highPriority[1].innerHTML );
+        localStorage.setItem("lowTask", lowPriority[1].innerHTML);
+        localStorage.setItem("mediumTask", mediumPriority[1].innerHTML);
+        localStorage.setItem("hightTask", highPriority[1].innerHTML);
     }
 });
-
-
-const lowPriority = lists.getElementsByClassName("low-priority");
-const mediumPriority = lists.getElementsByClassName("medium-priority");
-const highPriority = lists.getElementsByClassName("high-priority");
-
-
 
 // //извлекаю задачи из локал
 window.addEventListener("load", function () {
@@ -162,3 +160,81 @@ window.addEventListener("load", function () {
     mediumPriority[1].innerHTML = localStorage.getItem("mediumTask");
     highPriority[1].innerHTML = localStorage.getItem("hightTask");
 });
+
+// const daltaTime = 3;
+// const steps = 100;
+// const $searchInput = document.querySelector(".search-input");
+// const $tasklist = document.getElementById("task-list");
+
+// document.addEventListener("click", onSearchBtnClick);
+
+// function onSearchBtnClick(e) {
+//     // console.log(e.target)
+//     if (e.target.classList.contains("search-btn")) {
+//         // console.log("!!!!");
+
+//         let increment = 1;
+//         let startWidth = 50;
+//         let startLeft = 0;
+
+//         if (e.target.classList.contains("active")) {
+//             increment = -1;
+//             startWidth = 300;
+//             startLeft = 300;
+
+//             e.target.classList.remove("active");
+//             e.target.firstElementChild.style = "";
+//         } else {
+//             e.target.classList.add("active");
+//             e.target.firstElementChild.style.transform = "rotate(45deg)";
+//         }
+
+//         btnToggle(e.target, increment, startLeft);
+//         inputToggle(e.target.previousElementSibling, increment, startWidth);
+
+//         e.target.previousElementSibling.focus();
+//     }
+
+//     if (e.target.classList.contains("btn-trash")) {
+//         // console.log(e.target);
+//         e.target.parentElement.remove();
+//     }
+
+//     if (e.target.classList.contains("task-list-item")) {
+//         e.target.classList.toggle("complete");
+//     }
+// }
+
+// function inputToggle($input, increment, startWidth, styleName, start, end) {
+//     let counter = 0;
+//     let width = startWidth;
+//     increment = (increment * (300 - 50)) / steps;
+
+//     inputStep();
+
+//     function inputStep() {
+//         if (counter < steps) {
+//             $input.style.width = `${width}px`;
+//             width += increment;
+//             counter++;
+//             setTimeout(inputStep, daltaTime);
+//         }
+//     }
+// }
+
+// function btnToggle($btn, increment, startLeft) {
+//     let counter = 0;
+//     let leftPosition = startLeft;
+//     increment = (increment * (300 - 0)) / steps;
+
+//     btnStep();
+
+//     function btnStep() {
+//         if (counter < steps) {
+//             $btn.style.left = `${leftPosition}px`;
+//             leftPosition += increment;
+//             counter++;
+//             setTimeout(btnStep, daltaTime);
+//         }
+//     }
+// }

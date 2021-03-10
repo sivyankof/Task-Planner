@@ -21,25 +21,14 @@
         <div class="wrap">
             <h1 class="title">Список дел:</h1>
             <div class="buttons-container">
-                <button class="add-task" type="button" value="add">
-                    Добавить задачу
-                </button>
-
-                <button data-action="show" type="button">
-                    Показать список
-                </button>
-
-                <button data-action="hide" type="button">Скрыть список</button>
-
                 <div class="button__add-task" style="visibility: hidden">
                     <input
                         class="input-task"
                         type="text"
-                        placeholder="Введите новую задачу"
+                        placeholder="Напишите задание..."
                     />
                     <div class="wrap-button">
                         <div class="cotainer__button_task">
-                            <p>Приоритет:</p>
                             <input
                                 class="high-priority priority-3"
                                 type="button"
@@ -61,15 +50,16 @@
                                 title="Низкий приоритет"
                             />
                         </div>
-
-                        <button class="button-sent" type="button"></button>
                     </div>
                 </div>
+                <button class="add-task" type="button" value="add">
+                    <i class="fa fa-plus"></i>
+                </button>
             </div>
 
             <div class="list-container show">
                 <div class="low-priority">
-                    <h3>Низкий приоритет</h3>
+                    <h3 data-action="show">Низкий приоритет</h3>
                     <ul class="list-items low-priority" id="low-priority">
                         <li>
                             <input id="lc42z" type="checkbox" /><label
@@ -82,7 +72,7 @@
                 </div>
 
                 <div class="medium-priority">
-                    <h3>Средний приоритет</h3>
+                    <h3 data-action="show">Средний приоритет</h3>
                     <ul
                         class="list-items medium-priority"
                         id="medium-priority"
@@ -90,7 +80,7 @@
                 </div>
 
                 <div class="high-priority">
-                    <h3>Высокий приоритет</h3>
+                    <h3 data-action="show">Высокий приоритет</h3>
                     <ul
                         class="list-items high-priority"
                         id="high-priority"
