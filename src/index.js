@@ -13,22 +13,22 @@ let inputTask = document.querySelector(".input-task");
 // let buttonSent = document.querySelector(".button-sent");
 
 // кликаю по кнопке "добавление новой задачи"
-let AddTask = document
+document
     .querySelector(".add-task")
     .addEventListener("click", hideAndVisiblebuttonTask);
 
 function hideAndVisiblebuttonTask(e) {
     let AddTask = document.querySelector(".add-task");
 
-    inputTask.parentElement.style.visibility == "hidden"
-        ? ((inputTask.parentElement.style.visibility = "visible"),
-          inputTask.parentElement.classList.add("inputTaskLong"),
-          AddTask.firstElementChild.classList.add("iconClosetransform"),
-          inputTask.focus())
-        : ((inputTask.parentElement.style.visibility = "hidden"),
-          inputTask.parentElement.classList.remove("inputTaskLong"),
-          AddTask.firstElementChild.classList.remove("iconClosetransform"),
-          inputTask.value = "");
+    inputTask.parentElement.style.visibility == "hidden" ?
+        ((inputTask.parentElement.style.visibility = "visible"),
+            inputTask.parentElement.classList.add("inputTaskLong"),
+            AddTask.firstElementChild.classList.add("iconClosetransform"),
+            inputTask.focus()) :
+        ((inputTask.parentElement.style.visibility = "hidden"),
+            inputTask.parentElement.classList.remove("inputTaskLong"),
+            AddTask.firstElementChild.classList.remove("iconClosetransform"),
+            inputTask.value = "");
 }
 
 // выбор приоритета и передача его инпутут
@@ -59,7 +59,7 @@ document.addEventListener("keydown", function (e) {
     }
 });
 
-//функция создающая теги ли в которых находится чекбокс, лейбл и баттон удаления таска
+//функция создающая теги Li в которых находится чекбокс, лейбл и баттон удаления таска
 function createTagsforTasksButton(elem, name) {
     if (inputTask.value.length == 0 || inputTask.value.trim() == 0) {
         inputTask.value = "";
@@ -126,16 +126,13 @@ function hideShow(name, target) {
     }
 }
 
-// при нажатии на li или checkbox текст перечеркивается и становиться серым
+// при нажатии на li или checkbox текст перечеркивается и становиться серым. При нажатии на крестик, удаляет Li  
 lists.addEventListener("click", function (e) {
     let target = e.target;
-    target.checked
-        ? target.setAttribute("checked", "")
-        : target.removeAttribute("checked");
-});
+    target.checked ?
+        target.setAttribute("checked", "") :
+        target.removeAttribute("checked");
 
-//при нажатии на крестик удаляет ли
-lists.addEventListener("click", function (e) {
     if (e.target.className == "close") {
         e.target.parentNode.remove();
 
@@ -144,6 +141,7 @@ lists.addEventListener("click", function (e) {
         localStorage.setItem("hightTask", highPriority[1].innerHTML);
     }
 });
+
 
 // //извлекаю задачи из локал
 window.addEventListener("load", function () {
