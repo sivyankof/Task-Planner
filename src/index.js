@@ -1,23 +1,23 @@
 import "./styles/style.css";
 
-const buttons = document.querySelector(".buttons-container");
+// const buttons = document.querySelector(".buttons-container");
 const lists = document.querySelector(`.list-container`);
-const li = document.getElementsByTagName(`li`);
+const inputTask = document.querySelector(".input-task");
+// const li = lists.getElementsByTagName(`li`);
 
 // элементы для создание хранения в локале
 const lowPriority = lists.getElementsByClassName("low-priority");
 const mediumPriority = lists.getElementsByClassName("medium-priority");
 const highPriority = lists.getElementsByClassName("high-priority");
 
-let inputTask = document.querySelector(".input-task");
 // let buttonSent = document.querySelector(".button-sent");
 
 // кликаю по кнопке "добавление новой задачи"
 document
     .querySelector(".add-task")
-    .addEventListener("click", hideAndVisiblebuttonTask);
+    .addEventListener("click", hideAndVisibleButtonTask);
 
-function hideAndVisiblebuttonTask(e) {
+function hideAndVisibleButtonTask() {
     let AddTask = document.querySelector(".add-task");
 
     inputTask.parentElement.style.visibility == "hidden" ?
@@ -61,6 +61,7 @@ document.addEventListener("keydown", function (e) {
 
 //функция создающая теги Li в которых находится чекбокс, лейбл и баттон удаления таска
 function createTagsforTasksButton(elem, name) {
+
     if (inputTask.value.length == 0 || inputTask.value.trim() == 0) {
         inputTask.value = "";
         return;
@@ -73,9 +74,9 @@ function createTagsforTasksButton(elem, name) {
     let p = document.createElement("p");
 
     //генерируем случайное имя для li
-    var checkIdRandomName = Math.random().toString(36).substr(2, 5);
-    input.setAttribute("id", checkIdRandomName);
-    label.setAttribute("for", checkIdRandomName);
+    var idRandomName = Math.random().toString(36).substr(2, 5);
+    input.setAttribute("id", idRandomName);
+    label.setAttribute("for", idRandomName);
 
     // добавляем атрибуты
     input.type = "checkbox";
@@ -99,15 +100,18 @@ function createTagsforTasksButton(elem, name) {
     localStorage.setItem("hightTask", highPriority[1].innerHTML);
 }
 
+// скрытие и открытие стиска задач
 document.addEventListener("click", hideShoweListsColums);
 
 function hideShoweListsColums(e) {
+
     if (e.target.tagName === "H3") {
         hideShow(e.target.parentElement.classList[0], e.target);
     }
 }
 
 function hideShow(name, target) {
+
     let li = document.getElementById(name).getElementsByTagName("li");
 
     if (target.dataset.action === `show`) {

@@ -1,9 +1,11 @@
 html {
     font-size: 10px;
 }
+
 * {
     box-sizing: border-box;
 }
+
 body {
     font-size: 1.6rem;
     font-family: "Roboto", sans-serif;
@@ -27,13 +29,11 @@ body {
     display: flex;
     position: relative;
     outline: none;
-    cursor: pointer;
 }
 
 .add-task {
     background: #fff;
     border: 0;
-    cursor: pointer;
     font-size: 24px;
     position: relative;
     top: 0;
@@ -42,6 +42,7 @@ body {
     width: 50px;
     outline: none;
 }
+
 .add-task i {
     pointer-events: none;
     transition: 0.8s;
@@ -57,9 +58,11 @@ div.list-container {
     justify-content: center;
     margin-top: 30px;
 }
+
 .list-container ul {
     padding: 0;
 }
+
 .list-container div {
     width: 20em;
 }
@@ -76,7 +79,6 @@ li {
     font-size: 1.5rem;
     list-style-position: inside;
     list-style-type: none;
-    cursor: pointer;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -86,28 +88,8 @@ li {
     transition: 1s;
 }
 
-.low-priority {
-    background-color: lavender;
-    border-radius: 15px;
-    padding: 10px;
-    margin: 10px 10px 0 0;
-    outline: none;
-}
-.low-priority ul {
-    border-left: solid 5px;
-    border-left-color: dodgerblue;
-}
-.medium-priority {
-    background-color: lavender;
-    border-radius: 15px;
-    padding: 10px;
-    margin: 10px 10px 0 0;
-    outline: none;
-}
-.medium-priority ul {
-    border-left: solid 5px;
-    border-left-color: darkorange;
-}
+.low-priority,
+.medium-priority,
 .high-priority {
     background-color: lavender;
     border-radius: 15px;
@@ -115,15 +97,29 @@ li {
     margin: 10px 10px 0 0;
     outline: none;
 }
+
+.low-priority ul,
+.medium-priority ul,
 .high-priority ul {
     border-left: solid 5px;
+}
+
+.low-priority ul {
+    border-left-color: dodgerblue;
+}
+
+.medium-priority ul {
+    border-left-color: darkorange;
+}
+
+.high-priority ul {
     border-left-color: crimson;
 }
 
 .move {
     height: 0em;
     opacity: 0;
-    transition:  1s;
+    transition: 1s;
     margin: 0;
 }
 
@@ -164,48 +160,37 @@ div .cotainer__button_task {
     display: flex;
     margin-right: 10px;
 }
-.cotainer__button_task > * {
-    margin: 0;
-}
 
-.cotainer__button_task p {
-    color: rgba(0, 0, 0, 0.699);
-    margin-top: 0px;
-    margin-bottom: 0;
-    align-self: center;
-    cursor: auto;
-}
-.cotainer__button_task input {
+
+.cotainer__button_task input,
+.close,
+.buttons-container,
+.add-task,
+li {
     cursor: pointer;
 }
 
-.cotainer__button_task .low-priority {
+.cotainer__button_task .low-priority,
+.cotainer__button_task .medium-priority,
+.cotainer__button_task .high-priority {
+    margin: 0;
     font-size: 2rem;
-    color: dodgerblue;
     border: none;
     background-color: initial;
     width: 40px;
 }
+
+.cotainer__button_task .low-priority,
 .priority-1::before {
     color: dodgerblue;
 }
-.cotainer__button_task .medium-priority {
-    font-size: 2rem;
-    color: darkorange;
-    border: none;
-    background-color: initial;
-    width: 40px;
-}
+
+.cotainer__button_task .medium-priority,
 .priority-2::before {
     color: darkorange;
 }
-.cotainer__button_task .high-priority {
-    color: crimson;
-    font-size: 2rem;
-    border: none;
-    background-color: initial;
-    width: 40px;
-}
+
+.cotainer__button_task .high-priority,
 .priority-3::before {
     color: crimson;
 }
@@ -215,7 +200,6 @@ div .cotainer__button_task {
 .cotainer__button_task .priority-3:hover {
     background-color: rgb(218, 218, 218);
     border-radius: 0;
-
 }
 
 .button__add-task .wrap-button {
@@ -233,7 +217,6 @@ div .cotainer__button_task {
     background-color: unset;
     opacity: 0.5;
     margin-left: auto;
-    cursor: pointer;
     z-index: 3;
 }
 
@@ -243,6 +226,7 @@ div .cotainer__button_task {
     color: teal;
     font-size: 20px;
 }
+
 .close:hover {
     opacity: 1;
 }
@@ -258,23 +242,26 @@ input[type="checkbox"] {
     font-size: 20px;
     margin: 0 15px 0 10px;
 }
+
 .list-container label {
     display: flex;
     text-overflow: ellipsis;
     overflow: hidden;
     padding-right: 25px;
 }
+
 .list-container label p {
     margin: 0;
 }
 
-.list-container input[type="checkbox"]:checked + label::before {
+.list-container input[type="checkbox"]:checked+label::before {
     content: "\f046";
     font-family: FontAwesome;
     color: #c3c3c3ec;
     font-size: 20px;
     margin: 0 12px 0 10px;
 }
-.list-container input[checked] + label {
+
+.list-container input[checked]+label {
     color: #c3c3c3ec;
 }
