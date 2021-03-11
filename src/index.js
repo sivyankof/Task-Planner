@@ -44,15 +44,6 @@ document
 let priorityName = "";
 let priority = "";
 
-// // создает новую задачу через клик
-// buttonSent.addEventListener("click", function (e) {
-//     if (priority == "") {
-//         priority = "priority-1";
-//         priorityName = "low-priority";
-//     }
-//     createTagsforTasksButton(priority, priorityName);
-//     priority = "";
-// });
 // создает новую задачу через Enter
 document.addEventListener("keydown", function (e) {
     let buttonAddTask = document.querySelector(".button__add-task");
@@ -160,81 +151,3 @@ window.addEventListener("load", function () {
     mediumPriority[1].innerHTML = localStorage.getItem("mediumTask");
     highPriority[1].innerHTML = localStorage.getItem("hightTask");
 });
-
-// const daltaTime = 3;
-// const steps = 100;
-// const $searchInput = document.querySelector(".search-input");
-// const $tasklist = document.getElementById("task-list");
-
-// document.addEventListener("click", onSearchBtnClick);
-
-// function onSearchBtnClick(e) {
-//     // console.log(e.target)
-//     if (e.target.classList.contains("search-btn")) {
-//         // console.log("!!!!");
-
-//         let increment = 1;
-//         let startWidth = 50;
-//         let startLeft = 0;
-
-//         if (e.target.classList.contains("active")) {
-//             increment = -1;
-//             startWidth = 300;
-//             startLeft = 300;
-
-//             e.target.classList.remove("active");
-//             e.target.firstElementChild.style = "";
-//         } else {
-//             e.target.classList.add("active");
-//             e.target.firstElementChild.style.transform = "rotate(45deg)";
-//         }
-
-//         btnToggle(e.target, increment, startLeft);
-//         inputToggle(e.target.previousElementSibling, increment, startWidth);
-
-//         e.target.previousElementSibling.focus();
-//     }
-
-//     if (e.target.classList.contains("btn-trash")) {
-//         // console.log(e.target);
-//         e.target.parentElement.remove();
-//     }
-
-//     if (e.target.classList.contains("task-list-item")) {
-//         e.target.classList.toggle("complete");
-//     }
-// }
-
-// function inputToggle($input, increment, startWidth, styleName, start, end) {
-//     let counter = 0;
-//     let width = startWidth;
-//     increment = (increment * (300 - 50)) / steps;
-
-//     inputStep();
-
-//     function inputStep() {
-//         if (counter < steps) {
-//             $input.style.width = `${width}px`;
-//             width += increment;
-//             counter++;
-//             setTimeout(inputStep, daltaTime);
-//         }
-//     }
-// }
-
-// function btnToggle($btn, increment, startLeft) {
-//     let counter = 0;
-//     let leftPosition = startLeft;
-//     increment = (increment * (300 - 0)) / steps;
-
-//     btnStep();
-
-//     function btnStep() {
-//         if (counter < steps) {
-//             $btn.style.left = `${leftPosition}px`;
-//             leftPosition += increment;
-//             counter++;
-//             setTimeout(btnStep, daltaTime);
-//         }
-//     }
-// }
