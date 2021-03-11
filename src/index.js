@@ -130,8 +130,8 @@ lists.addEventListener('click', function (e) {
         ? target.setAttribute('checked', '')
         : target.removeAttribute('checked');
 
-    if (e.target.className == 'close') {
-        e.target.parentNode.remove();
+    if (target.className == 'close') {
+        target.parentNode.remove();
 
         localStorage.setItem('lowTask', lowPriority[1].innerHTML);
         localStorage.setItem('mediumTask', mediumPriority[1].innerHTML);
