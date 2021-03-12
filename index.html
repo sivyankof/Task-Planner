@@ -1,63 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- <link rel="stylesheet" href="./assets/styles/style.css" /> -->
+        <!-- <link rel="preconnect" href="https://fonts.gstatic.com" /> -->
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.css"
+        />
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <link rel="stylesheet" href="./assets/styles/style.css" /> -->
-    <!-- <link rel="preconnect" href="https://fonts.gstatic.com" /> -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700&display=swap"
+            rel="stylesheet"
+        />
+        <title>Task planner</title>
+    </head>
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700&display=swap"
-        rel="stylesheet" />
-    <title>Task planner</title>
-</head>
+    <body>
+        <div class="wrap">
+            <h1 class="title">Список дел:</h1>
+            <div class="buttons-container">
+                <div class="button__add-task" style="visibility: hidden">
+                    <input
+                        class="input-task"
+                        type="text"
+                        placeholder="Напишите задание..."
+                    />
+                    <div class="wrap-button">
+                        <div class="cotainer__button_task">
+                            <input
+                                class="high-priority priority-3"
+                                type="button"
+                                value="!!!"
+                                title="Высокий приоритет"
+                            />
 
-<body>
-    <div class="wrap">
-        <h1 class="title">Список дел:</h1>
-        <div class="buttons-container">
-            <div class="button__add-task" style="visibility: hidden">
-                <input class="input-task" type="text" placeholder="Напишите задание..." />
-                <div class="wrap-button">
-                    <div class="cotainer__button_task">
-                        <input class="high-priority priority-3" type="button" value="!!!" title="Высокий приоритет" />
+                            <input
+                                class="medium-priority priority-2"
+                                type="button"
+                                value="!!"
+                                title="Средний приоритет"
+                            />
 
-                        <input class="medium-priority priority-2" type="button" value="!!" title="Средний приоритет" />
-
-                        <input class="low-priority priority-1" type="button" value="!" title="Низкий приоритет" />
+                            <input
+                                class="low-priority priority-1"
+                                type="button"
+                                value="!"
+                                title="Низкий приоритет"
+                            />
+                        </div>
                     </div>
                 </div>
+                <button class="add-task" type="button" value="add">
+                    <i class="fa fa-plus"></i>
+                </button>
             </div>
-            <button class="add-task" type="button" value="add">
-                <i class="fa fa-plus"></i>
-            </button>
+
+            <div class="list-container show">
+                <div class="low-priority">
+                    <h3 data-action="show">Низкий приоритет</h3>
+                    <ul class="list-items low-priority" id="low-priority">
+                        <li>
+                            <input id="lc42z" type="checkbox" /><label
+                                for="lc42z"
+                                class="priority-1"
+                            >
+                                <p>dsfasdfasfd</p> </label
+                            ><button type="button" class="close"></button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="medium-priority">
+                    <h3 data-action="show">Средний приоритет</h3>
+                    <ul
+                        class="list-items medium-priority"
+                        id="medium-priority"
+                    ></ul>
+                </div>
+
+                <div class="high-priority">
+                    <h3 data-action="show">Высокий приоритет</h3>
+                    <ul
+                        class="list-items high-priority"
+                        id="high-priority"
+                    ></ul>
+                </div>
+            </div>
         </div>
-
-        <div class="list-container show">
-            <div class="low-priority">
-                <h3 data-action="show">Низкий приоритет</h3>
-                <ul class="list-items low-priority" id="low-priority">
-                    <li>
-                        <input id="lc42z" type="checkbox" /><label for="lc42z" class="priority-1">
-                            <p>dsfasdfasfd</p>
-                        </label><button type="button" class="close"></button>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="medium-priority">
-                <h3 data-action="show">Средний приоритет</h3>
-                <ul class="list-items medium-priority" id="medium-priority"></ul>
-            </div>
-
-            <div class="high-priority">
-                <h3 data-action="show">Высокий приоритет</h3>
-                <ul class="list-items high-priority" id="high-priority"></ul>
-            </div>
-        </div>
-    </div>
-</body>
-
+    </body>
 </html>

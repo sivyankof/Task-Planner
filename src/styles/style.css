@@ -8,14 +8,13 @@ html {
 
 body {
     font-size: 1.6rem;
-    font-family: "Roboto", sans-serif;
+    font-family: 'Roboto', sans-serif;
     background-image: linear-gradient(135deg, #7d5fff, #543bc3);
     height: 100vh;
-
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow: hidden;
+    /* overflow: hidden; */
     margin: 0;
 }
 
@@ -153,14 +152,13 @@ li {
     padding-left: 10px;
     padding-right: 10px;
     font-weight: 300;
-    font-family: "Roboto", sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 div .cotainer__button_task {
     display: flex;
     margin-right: 10px;
 }
-
 
 .cotainer__button_task input,
 .close,
@@ -221,7 +219,7 @@ li {
 }
 
 .close::after {
-    content: "\f00d";
+    content: '\f00d';
     font-family: FontAwesome;
     color: teal;
     font-size: 20px;
@@ -231,12 +229,12 @@ li {
     opacity: 1;
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
     display: none;
 }
 
 .list-container label::before {
-    content: "\f096";
+    content: '\f096';
     font-family: FontAwesome;
     /* color: black; */
     font-size: 20px;
@@ -254,14 +252,53 @@ input[type="checkbox"] {
     margin: 0;
 }
 
-.list-container input[type="checkbox"]:checked+label::before {
-    content: "\f046";
+.list-container input[type='checkbox']:checked + label::before {
+    content: '\f046';
     font-family: FontAwesome;
     color: #c3c3c3ec;
     font-size: 20px;
     margin: 0 12px 0 10px;
 }
 
-.list-container input[checked]+label {
+.list-container input[checked] + label {
     color: #c3c3c3ec;
+}
+
+@media screen and (max-width: 900px) {
+    .list-container {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .list-container div {
+        width: 100vw;
+        padding: 0;
+        margin: 0 auto 10px;
+    }
+    .buttons-container {
+        margin: 0;
+    }
+    .inputTaskLong {
+        width: 85%;
+    }
+    .input-task {
+        padding-right: 0;
+    }
+    .add-task {
+        width: 50px;
+        padding: 0;
+    }
+    div .cotainer__button_task {
+        margin: 0;
+    }
+    div .cotainer__button_task .high-priority,
+    div .cotainer__button_task .medium-priority,
+    div .cotainer__button_task .low-priority {
+        padding: 0;
+        width: 25px;
+    }
+    li {
+        max-width: none;
+    }
 }
