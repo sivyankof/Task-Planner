@@ -1,5 +1,3 @@
-import { storage } from './store';
-
 export function hideShoweListsColums(e) {
     if (e.target.tagName === 'H3') {
         hideShow(e.target.parentElement.classList[0], e.target);

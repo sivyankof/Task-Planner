@@ -20,6 +20,11 @@ export function submitTask(e) {
             priorityName = 'low-priority';
         }
         if (e.key == 'Enter') {
+            if (duplicateTask(priorityName, inputTask.value) == false) {
+                inputTask.value = '';
+                return;
+            }
+
             createTagsforTasksButton(priority, priorityName);
         }
         priority = '';
@@ -27,8 +32,6 @@ export function submitTask(e) {
 }
 
 function createTagsforTasksButton(priority, priorityName) {
-    //генерируем случайное имя для li
-
     var idRandomName = Math.random().toString(36).substr(2, 5);
     let namePriorityUl = document.getElementById(priorityName);
 
@@ -75,5 +78,19 @@ function createTagsforTasksButton(priority, priorityName) {
             checked: false,
         });
         return localStorage.setItem('task', JSON.stringify(storage));
+    }
+}
+
+function duplicateTask(priorityName, value) {
+    if (localStorage.length >= 1) {
+        let storage = JSON.parse(localStorage.getItem('task'));
+
+        let storeDuplicate = storage.findIndex(
+            (el) => el.value == value && el.priorityName == priorityName,
+        );
+
+        if (storeDuplicate >= 0) {
+            return false;
+        }
     }
 }
