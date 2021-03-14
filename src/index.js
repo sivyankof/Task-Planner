@@ -1,25 +1,26 @@
 import './styles/style.css';
 
-import hideAndVisibleButtonTask from "./hide-show-btn";
-import {
-   prioritySelection,
-   submitTask
-} from "./create-task";
-import hideShoweListsColums from "./hide-show-lists";
-import textColorCompleteAndClassClose from "./task-close"
 
+import hideAndVisibleButtonTask from './hide-show-btn';
+import { prioritySelection, submitTask } from './create-task';
+import {hideShoweListsColums} from './hide-show-lists';
+import {textColorCompleteAndClassClose} from './task-close';
+import {store} from './store';
 
-const addTask = document.querySelector(".add-task");
-const btnAddTask = document.querySelector(".button__add-task")
+const addTask = document.querySelector('.add-task');
+const btnAddTask = document.querySelector('.button__add-task');
 const lists = document.querySelector(`.list-container`);
 
 
-addTask.addEventListener("click", hideAndVisibleButtonTask);
 
-btnAddTask.addEventListener("click", prioritySelection);
+addTask.addEventListener('click', hideAndVisibleButtonTask);
 
-document.addEventListener("keydown", submitTask);
+btnAddTask.addEventListener('click', prioritySelection);
 
-document.addEventListener("click", hideShoweListsColums);
+document.addEventListener('keydown', submitTask);
 
-lists.addEventListener("click", textColorCompleteAndClassClose)
+document.addEventListener('click', hideShoweListsColums);
+
+lists.addEventListener('click', textColorCompleteAndClassClose);
+
+window.addEventListener('load', store);

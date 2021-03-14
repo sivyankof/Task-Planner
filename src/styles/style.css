@@ -248,9 +248,9 @@ input[type='checkbox'] {
     padding-right: 25px;
 }
 
-.list-container label p {
+/* .list-container label p {
     margin: 0;
-}
+} */
 
 .list-container input[type='checkbox']:checked + label::before {
     content: '\f046';
