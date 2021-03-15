@@ -1,4 +1,8 @@
-import { priorityStore, storage } from './store';
+import {
+    priorityStore,
+    storage
+} from './store';
+
 
 const inputTask = document.querySelector('.input-task');
 
@@ -36,8 +40,7 @@ function createTagsforTasksButton(priority, priorityName) {
     let namePriorityUl = document.getElementById(priorityName);
 
     if (inputTask.value.length == 0 || inputTask.value.trim() == 0) {
-        inputTask.value = '';
-        return;
+        return inputTask.value = '';
     }
 
     let li = document.createElement(`li`);
