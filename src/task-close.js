@@ -1,5 +1,5 @@
 export function textColorCompleteAndClassClose(e) {
-    let storage = JSON.parse(localStorage.getItem('task'));
+    const storage = JSON.parse(localStorage.getItem('task'));
     let target = e.target;
 
     let idCheked = target.parentElement.firstElementChild.id;

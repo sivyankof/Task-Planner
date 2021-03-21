@@ -1,8 +1,4 @@
-import {
-    priorityStore,
-    storage
-} from './store';
-
+import { priorityStore, storage } from './store';
 
 const inputTask = document.querySelector('.input-task');
 
@@ -24,12 +20,21 @@ export function submitTask(e) {
             priorityName = 'low-priority';
         }
         if (e.key == 'Enter') {
-            if (duplicateTask(priorityName, inputTask.value) == false) {
+            if (duplicateTask(inputTask.value) == false) {
+                const alertWarning = document.querySelector('.alert-warning');
+                
+                alertWarning.style.visibility = 'visible';
+
+                const warning = () => {
+                    alertWarning.style.visibility = 'hidden';
+                };
+
+                setTimeout(warning, 2000);
                 inputTask.value = '';
                 return;
+            } else {
+                createTagsforTasksButton(priority, priorityName);
             }
-
-            createTagsforTasksButton(priority, priorityName);
         }
         priority = '';
     }
@@ -40,7 +45,7 @@ function createTagsforTasksButton(priority, priorityName) {
     let namePriorityUl = document.getElementById(priorityName);
 
     if (inputTask.value.length == 0 || inputTask.value.trim() == 0) {
-        return inputTask.value = '';
+        return (inputTask.value = '');
     }
 
     let li = document.createElement(`li`);
@@ -57,6 +62,7 @@ function createTagsforTasksButton(priority, priorityName) {
     let closeButton = document.createElement('button');
     closeButton.type = 'button';
     closeButton.classList.add('close');
+    // closeButton.style.visibility = 'hidden';
 
     li.prepend(input, label);
     li.append(closeButton);
@@ -84,13 +90,11 @@ function createTagsforTasksButton(priority, priorityName) {
     }
 }
 
-function duplicateTask(priorityName, value) {
+function duplicateTask(value) {
     if (localStorage.length >= 1) {
         let storage = JSON.parse(localStorage.getItem('task'));
 
-        let storeDuplicate = storage.findIndex(
-            (el) => el.value == value && el.priorityName == priorityName,
-        );
+        let storeDuplicate = storage.findIndex((el) => el.value == value);
 
         if (storeDuplicate >= 0) {
             return false;
