@@ -31,7 +31,6 @@ function createStoreTask(id, value, priority, priorityName, checked) {
     let closeButton = document.createElement('button');
     closeButton.type = 'button';
     closeButton.classList.add('close');
-    // closeButton.style.visibility = 'visible';
 
     if (checked === true) {
         input.setAttribute('checked', '');

@@ -9,9 +9,6 @@ const buttonAddTask = document.querySelector('.button__add-task');
 export function openEditTask(e) {
     let target = e.target;
 
-    // event.preventDefault()
-    // event.stopPropagation()
-
     if (target.tagName === 'LABEL') {
         if (target.parentNode.firstChild.checked == true) {
             return;
@@ -29,8 +26,6 @@ export function openEditTask(e) {
         priorityName = target.parentNode.parentNode.id;
         priority = target.className;
     }
-    // event.stopPropagation()
-    // event.preventDefault()
 }
 
 export function editTaskAdd(e) {

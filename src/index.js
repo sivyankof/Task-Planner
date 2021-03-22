@@ -3,7 +3,7 @@ import './styles/style.css';
 import hideAndVisibleButtonTask from './hide-show-btn';
 import { prioritySelection, submitTask } from './create-task';
 import { hideShoweListsColums } from './hide-show-lists';
-import { textColorCompleteAndClassClose } from './task-close';
+import { textColorCompleteAndClassClose } from './close-choice';
 import { store } from './store';
 import { openEditTask, editTaskAdd, priorityEdit } from './edit-task';
 
