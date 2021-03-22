@@ -22,7 +22,7 @@ export function submitTask(e) {
         if (e.key == 'Enter') {
             if (duplicateTask(inputTask.value) == false) {
                 const alertWarning = document.querySelector('.alert-warning');
-                
+
                 alertWarning.style.visibility = 'visible';
 
                 const warning = () => {
@@ -44,10 +44,6 @@ function createTagsforTasksButton(priority, priorityName) {
     var idRandomName = Math.random().toString(36).substr(2, 5);
     let namePriorityUl = document.getElementById(priorityName);
 
-    if (inputTask.value.length == 0 || inputTask.value.trim() == 0) {
-        return (inputTask.value = '');
-    }
-
     let li = document.createElement(`li`);
 
     let input = document.createElement('input');
@@ -62,7 +58,7 @@ function createTagsforTasksButton(priority, priorityName) {
     let closeButton = document.createElement('button');
     closeButton.type = 'button';
     closeButton.classList.add('close');
-    // closeButton.style.visibility = 'hidden';
+    closeButton.style.visibility = 'hidden';
 
     li.prepend(input, label);
     li.append(closeButton);
@@ -94,7 +90,13 @@ function duplicateTask(value) {
     if (localStorage.length >= 1) {
         let storage = JSON.parse(localStorage.getItem('task'));
 
-        let storeDuplicate = storage.findIndex((el) => el.value == value);
+        if (inputTask.value.length == 0 || inputTask.value.trim() == 0) {
+            return (inputTask.value = '');
+        }
+
+        let storeDuplicate = storage.findIndex(
+            (el) => el.value.trim() == value.trim(),
+        );
 
         if (storeDuplicate >= 0) {
             return false;

@@ -8,9 +8,11 @@ export function textColorCompleteAndClassClose(e) {
     if (target.checked == true) {
         target.setAttribute('checked', '');
         storage[storeIndex].checked = true;
+        target.parentElement.lastChild.style.visibility = 'visible';
     } else if (target.checked == false) {
         target.removeAttribute('checked');
         storage[storeIndex].checked = false;
+        target.parentElement.lastChild.style.visibility = 'hidden';
     }
 
     if (target.className == 'close') {
@@ -20,6 +22,8 @@ export function textColorCompleteAndClassClose(e) {
         const storeIndex = storage.findIndex((el) => el.id == idRemove);
 
         storage.splice(storeIndex, 1);
+
+        return localStorage.setItem('task', JSON.stringify(storage));
     }
 
     return localStorage.setItem('task', JSON.stringify(storage));

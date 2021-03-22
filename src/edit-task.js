@@ -4,18 +4,33 @@ let priority = '';
 
 const editTask = document.querySelector('.edit-task');
 const container = document.querySelector('.containet-btn-edit');
+const buttonAddTask = document.querySelector('.button__add-task');
 
 export function openEditTask(e) {
     let target = e.target;
 
+    // event.preventDefault()
+    // event.stopPropagation()
+
     if (target.tagName === 'LABEL') {
+        if (target.parentNode.firstChild.checked == true) {
+            return;
+        }
+
         container.style.visibility = 'visible';
+
+        if (buttonAddTask.classList.contains('inputTaskLong')) {
+            buttonAddTask.classList.remove('inputTaskLong');
+            buttonAddTask.style.visibility = 'hidden';
+        }
 
         editTask.value = target.textContent;
         idElement = target.previousElementSibling.id;
         priorityName = target.parentNode.parentNode.id;
         priority = target.className;
     }
+    // event.stopPropagation()
+    // event.preventDefault()
 }
 
 export function editTaskAdd(e) {
@@ -23,7 +38,6 @@ export function editTaskAdd(e) {
 
     if (e.key == 'Enter') {
         if (container.style.visibility == 'visible') {
-
             if (duplicateTask(editTask.value) == false) {
                 editTask.value = '';
                 container.style.visibility = 'hidden';
@@ -31,7 +45,7 @@ export function editTaskAdd(e) {
                 const alertWarning = document.querySelector('.alert-warning');
 
                 alertWarning.style.visibility = 'visible';
-                
+
                 function warning() {
                     alertWarning.style.visibility = 'hidden';
                 }
@@ -52,6 +66,16 @@ export function editTaskAdd(e) {
                 container.style.visibility = 'hidden';
             }
         }
+    } else if (e.key == 'Escape') {
+        idTask.nextElementSibling.textContent = editTask.value;
+        crateEditTask(
+            priority,
+            priorityName,
+            idTask.nextElementSibling.textContent,
+            idElement,
+        );
+        idTask.parentNode.remove();
+        container.style.visibility = 'hidden';
     }
 }
 
@@ -84,7 +108,7 @@ function crateEditTask(priority, priorityName, value, id) {
     let closeButton = document.createElement('button');
     closeButton.type = 'button';
     closeButton.classList.add('close');
-    // closeButton.style.visibility = 'hidden';
+    closeButton.style.visibility = 'hidden';
 
     li.prepend(input, label);
     li.append(closeButton);

@@ -24,10 +24,10 @@ document.addEventListener('click', hideShoweListsColums);
 
 lists.addEventListener('click', textColorCompleteAndClassClose);
 
-window.addEventListener('load', store);
-
 lists.addEventListener('dblclick', openEditTask);
 
 document.addEventListener('keydown', editTaskAdd);
 
 priortyBtnEdit.addEventListener('click', priorityEdit);
+
+window.addEventListener('load', store);

@@ -23,10 +23,6 @@ function createStoreTask(id, value, priority, priorityName, checked) {
     input.setAttribute('id', id);
     input.type = 'checkbox';
 
-    if (checked === true) {
-        input.setAttribute('checked', '');
-    }
-
     let label = document.createElement('label');
     label.setAttribute('for', id);
     label.classList.add(priority);
@@ -35,6 +31,14 @@ function createStoreTask(id, value, priority, priorityName, checked) {
     let closeButton = document.createElement('button');
     closeButton.type = 'button';
     closeButton.classList.add('close');
+    // closeButton.style.visibility = 'visible';
+
+    if (checked === true) {
+        input.setAttribute('checked', '');
+        closeButton.style.visibility = 'visible';
+    } else {
+        closeButton.style.visibility = 'hidden';
+    }
 
     li.prepend(input, label);
     li.append(closeButton);
