@@ -2,6 +2,7 @@ export let storage = JSON.parse(localStorage.getItem('task'));
 export const priorityStore = [];
 
 export function store() {
+    console.log(storage);
     if (storage !== null) {
         for (let a of storage) {
             createStoreTask(

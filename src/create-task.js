@@ -88,18 +88,20 @@ function createTagsforTasksButton(priority, priorityName) {
 
 function duplicateTask(value) {
     if (localStorage.length >= 1) {
-        let storage = JSON.parse(localStorage.getItem('task'));
+        if (localStorage.getItem('task')) {
+            let storage = JSON.parse(localStorage.getItem('task'));
 
-        if (inputTask.value.length == 0 || inputTask.value.trim() == 0) {
-            return (inputTask.value = '');
-        }
+            if (inputTask.value.length == 0 || inputTask.value.trim() == 0) {
+                return (inputTask.value = '');
+            }
 
-        let storeDuplicate = storage.findIndex(
-            (el) => el.value.trim() == value.trim(),
-        );
+            let storeDuplicate = storage.findIndex(
+                (el) => el.value.trim() == value.trim(),
+            );
 
-        if (storeDuplicate >= 0) {
-            return false;
+            if (storeDuplicate >= 0) {
+                return false;
+            }
         }
     }
 }
