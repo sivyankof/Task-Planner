@@ -2,14 +2,14 @@ import React from 'react';
 import Square from './square';
 
 class Board extends React.Component {
-    renderSquare(i) {
-        return <Square value={this.props.squares[i]} onClick={() => this.props.onClick(i)} />;
-    }
 
-    // resetGame() {
-    //     const squares = Array(9).fill(null);
-    //     this.setState({ squares: squares });
-    // }
+    renderSquare(i) {
+        return <Square  value={this.props.squares[i]} 
+                        onClick={() => this.props.onClick(i)} 
+                        winnerCombo = {this.props.winnerCombo}
+                        position={i}
+                        />;
+    }
 
     render() {
         return (
@@ -29,9 +29,6 @@ class Board extends React.Component {
                     {this.renderSquare(7)}
                     {this.renderSquare(8)}
                 </div>
-                {/* <div>
-                    <button onClick={() => this.resetGame()}>Сбросить</button>
-                </div> */}
             </div>
         );
     }

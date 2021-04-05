@@ -1,6 +1,8 @@
 body {
     font: 14px 'Century Gothic', Futura, sans-serif;
     margin: 20px;
+    background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
+    background-attachment: fixed;
 }
 
 ol,
@@ -54,4 +56,8 @@ ul {
 }
 .game-board {
     margin: 0 auto;
+}
+
+.bg {
+    background-color: rgba(0, 184, 148, 1);
 }
