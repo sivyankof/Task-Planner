@@ -1,0 +1,19 @@
+import React, { Fragment } from 'react';
+import ItemList from './list-item';
+
+const BaseTodo = () => {
+    return (
+        <Fragment>
+            <header>
+                <h1>Планировщик задач</h1>
+            </header>
+            <main className='item-tasks'>
+                <ItemList className='priority-low' name= 'Не важная задача' />
+                <ItemList className='priority-middle' name= 'Важная задача'/>
+                <ItemList className='priority-high' name= 'Очень важная задача'/>
+            </main>
+        </Fragment>
+    );
+};
+
+export default BaseTodo;

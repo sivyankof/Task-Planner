@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import './index.css';
+import './style.css';
 
-import Game from './app'
+import App from './app'
 
 
 // ========================================
 
-ReactDOM.render(<Game />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
