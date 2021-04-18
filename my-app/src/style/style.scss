@@ -13,14 +13,11 @@ body {
     align-items: center;
     margin-top: 3em;
 
-    background-color: rgba(240, 248, 255, 0.493);
-    border-radius: 50px;
-    height: 80vh;
-    width: 70vw;
-
     .item-tasks {
         display: flex;
         flex-direction: row;
+        width: 90vw;
+        justify-content: center;
 
         h3 {
             text-align: center;
@@ -32,19 +29,19 @@ body {
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-width: 20em;
+            width: 90%;
             margin-right: 1em;
         }
 
-        .priority-low h3 {
+        .priority-low h2 {
             color: #27ae60;
             text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
         }
-        .priority-middle h3 {
+        .priority-middle h2 {
             color: #fff802;
             text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
         }
-        .priority-high h3 {
+        .priority-high h2 {
             color: #c0392b;
             text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
         }
@@ -58,10 +55,12 @@ body {
                 margin-bottom: 10px;
                 background-color: #ffffff8c;
                 width: 20em;
-                padding: 10px 20px;
+                padding: 0 20px;
                 border-radius: 50px;
+                line-height: 40px;
                 display: flex;
                 justify-content: space-between;
+                font-size: 17px;
 
                 input[type='checkbox'] {
                     margin-right: 1em;
@@ -69,11 +68,12 @@ body {
                 }
 
                 label {
+                    position: absolute;
                     cursor: pointer;
                 }
 
                 .btn-trash {
-                    background-image: url(./icons/trash.svg);
+                    background-image: url(../icons/trash.svg);
                     background-repeat: no-repeat;
                     background-position: center;
                     background-size: 20px;
@@ -88,6 +88,35 @@ body {
                         transform: scale(1.1);
                         transition: 0.8s;
                     }
+                }
+
+                .edit-btn-task {
+                    background-image: url(../icons/pencil.svg);
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    margin-right: 10px;
+                    width: 20px;
+                    height: 20px;
+                    background-color: initial;
+                    border: none;
+                    outline: none;
+                    cursor: pointer;
+
+                    &:hover {
+                        transform: scale(1.1);
+                        transition: 0.8s;
+                    }
+                }
+                .edit-task-input {
+                    outline: none;
+                    border: none;
+                    position: relative;
+                    left: -90px;
+                    height: 36px;
+                    top: 1px;
+                }
+                .edit-hidden {
+                    display: none;
                 }
             }
         }
@@ -110,11 +139,6 @@ body {
             &:focus {
                 transition: 1s;
                 transform: scale(0.95);
-                &::placeholder {
-                    transform: scale(1.1);
-                    transform: translate(20px);
-                    transition: all 1s;
-                }
             }
         }
     }

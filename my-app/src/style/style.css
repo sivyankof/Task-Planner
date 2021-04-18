@@ -31,11 +31,6 @@ body {
       -ms-flex-align: center;
           align-items: center;
   margin-top: 3em;
-  background-color: rgba(240, 248, 255, 0.493);
-  -webkit-border-radius: 50px;
-          border-radius: 50px;
-  height: 80vh;
-  width: 70vw;
 }
 
 #root .item-tasks {
@@ -48,6 +43,11 @@ body {
   -webkit-flex-direction: row;
       -ms-flex-direction: row;
           flex-direction: row;
+  width: 90vw;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 #root .item-tasks h3 {
@@ -70,21 +70,21 @@ body {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  min-width: 20em;
+  width: 90%;
   margin-right: 1em;
 }
 
-#root .item-tasks .priority-low h3 {
+#root .item-tasks .priority-low h2 {
   color: #27ae60;
   text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
 }
 
-#root .item-tasks .priority-middle h3 {
+#root .item-tasks .priority-middle h2 {
   color: #fff802;
   text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
 }
 
-#root .item-tasks .priority-high h3 {
+#root .item-tasks .priority-high h2 {
   color: #c0392b;
   text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
 }
@@ -99,9 +99,10 @@ body {
   margin-bottom: 10px;
   background-color: #ffffff8c;
   width: 20em;
-  padding: 10px 20px;
+  padding: 0 20px;
   -webkit-border-radius: 50px;
           border-radius: 50px;
+  line-height: 40px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -110,6 +111,7 @@ body {
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  font-size: 17px;
 }
 
 #root .item-tasks ul li input[type='checkbox'] {
@@ -118,11 +120,12 @@ body {
 }
 
 #root .item-tasks ul li label {
+  position: absolute;
   cursor: pointer;
 }
 
 #root .item-tasks ul li .btn-trash {
-  background-image: url(./icons/trash.svg);
+  background-image: url(../icons/trash.svg);
   background-repeat: no-repeat;
   background-position: center;
   -webkit-background-size: 20px 20px;
@@ -142,6 +145,41 @@ body {
   -webkit-transition: 0.8s;
   -o-transition: 0.8s;
   transition: 0.8s;
+}
+
+#root .item-tasks ul li .edit-btn-task {
+  background-image: url(../icons/pencil.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  background-color: initial;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+#root .item-tasks ul li .edit-btn-task:hover {
+  -webkit-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-transition: 0.8s;
+  -o-transition: 0.8s;
+  transition: 0.8s;
+}
+
+#root .item-tasks ul li .edit-task-input {
+  outline: none;
+  border: none;
+  position: relative;
+  left: -90px;
+  height: 36px;
+  top: 1px;
+}
+
+#root .item-tasks ul li .edit-hidden {
+  display: none;
 }
 
 #root .item-tasks .inputTask {
@@ -190,46 +228,4 @@ body {
   -webkit-transform: scale(0.95);
       -ms-transform: scale(0.95);
           transform: scale(0.95);
-}
-
-#root .item-tasks .inputTask:focus::-webkit-input-placeholder {
-  -webkit-transform: scale(1.1);
-          transform: scale(1.1);
-  -webkit-transform: translate(20px);
-          transform: translate(20px);
-  -webkit-transition: all 1s;
-  -o-transition: all 1s;
-  transition: all 1s;
-}
-
-#root .item-tasks .inputTask:focus:-ms-input-placeholder {
-  -ms-transform: scale(1.1);
-      transform: scale(1.1);
-  -ms-transform: translate(20px);
-      transform: translate(20px);
-  -webkit-transition: all 1s;
-  -o-transition: all 1s;
-  transition: all 1s;
-}
-
-#root .item-tasks .inputTask:focus::-ms-input-placeholder {
-  -ms-transform: scale(1.1);
-      transform: scale(1.1);
-  -ms-transform: translate(20px);
-      transform: translate(20px);
-  -webkit-transition: all 1s;
-  -o-transition: all 1s;
-  transition: all 1s;
-}
-
-#root .item-tasks .inputTask:focus::placeholder {
-  -webkit-transform: scale(1.1);
-      -ms-transform: scale(1.1);
-          transform: scale(1.1);
-  -webkit-transform: translate(20px);
-      -ms-transform: translate(20px);
-          transform: translate(20px);
-  -webkit-transition: all 1s;
-  -o-transition: all 1s;
-  transition: all 1s;
 }
