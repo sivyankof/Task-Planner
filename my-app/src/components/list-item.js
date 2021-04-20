@@ -74,7 +74,7 @@ const ItemList = (props) => {
             <ul>
                 {tasksArr.map((el, i) => {
                     return (
-                        <li key={i}>
+                        <li key={el.name}>
                             <div>
                                 <input
                                     type='checkbox'
