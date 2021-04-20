@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import InputTask from './input-task';
 import BtnDelete from './delete-btn';
 import EditTask from './edit-task-btn';
@@ -7,45 +7,65 @@ const ItemList = (props) => {
     const [valueImput, setValueImput] = useState('');
     const [tasksArr, setTasks] = useState([]);
 
-    const handleChange = (e) => {
-        setValueImput(e.target.value);
+    const handleChange = (event) => {
+        setValueImput(event.target.value);
     };
 
-    const handleKeyDawn = (e) => {
-        if (e.key === 'Enter') {
+    const handleKeyDawn = (event) => {
+        if (event.key === 'Enter') {
             if (valueImput.trim().length !== 0) {
-                setTasks(tasksArr.concat(valueImput));
-                setValueImput('');
-            } else {
-                setValueImput('');
-                return;
+                if (tasksArr.findIndex((el) => el.name === valueImput) === -1) {
+                    const tasksArrCopy = [...tasksArr];
+
+                    tasksArrCopy.push({ name: valueImput, checked: false });
+
+                    setTasks(tasksArrCopy);
+                    setValueImput('');
+                } else {
+                    setValueImput('');
+                    return;
+                }
             }
         }
     };
-    const handleClickBtnDeleted = (e) => {
-        let target = e.target;
 
-        tasksArr.forEach((el, i) => {
-            if (el === target.name) {
-                tasksArr.splice(i, 1);
-                setTasks([...tasksArr]);
+    const onNewNameTask = (prevState, newState) => {
+        const tasksArrCopy = [...tasksArr];
+
+        tasksArrCopy.forEach((el, i) => {
+            if (el.name === prevState) {
+                tasksArrCopy[i].name = newState;
+                return setTasks(tasksArrCopy);
             }
         });
     };
 
-    const NewNameTask = (e) => {
-        if (e.key === 'Enter') {
-            let prevState = e.target.placeholder;
-            let newState = e.target.value;
+    const onChekedInput = (event) => {
+        let check = event.target.checked;
 
-            tasksArr.forEach((el, i) => {
-                if (el === prevState) {
-                    tasksArr.splice(i, 1, newState);
-                    setTasks([...tasksArr]);
-                }
-            });
-            return 1111;
-        }
+        const tasksArrCopy = [...tasksArr];
+
+        let index = tasksArrCopy.findIndex((el, i) => {
+            return el.name === event.target.name;
+        });
+
+        tasksArrCopy[index].checked = check;
+        console.log(tasksArrCopy);
+        return setTasks(tasksArrCopy);
+    };
+
+    const handleClickBtnDeleted = (event) => {
+        let target = event.target;
+
+        const tasksArrCopy = [...tasksArr];
+
+        let index = tasksArrCopy.findIndex((el, i) => {
+            return el.name === target.name;
+        });
+
+        tasksArrCopy.splice(index, 1);
+        console.log(tasksArrCopy);
+        setTasks(tasksArrCopy);
     };
 
     return (
@@ -56,16 +76,25 @@ const ItemList = (props) => {
                     return (
                         <li key={i}>
                             <div>
-                                <input type='checkbox' id={el} name={el} />
-                                <label htmlFor={el}>{el}</label>
+                                <input
+                                    type='checkbox'
+                                    id={el.name}
+                                    name={el.name}
+                                    onChange={onChekedInput}
+                                />
+                                <label htmlFor={el.name}>{el.name}</label>
                             </div>
                             <div>
                                 <EditTask
-                                    value={el}
-                                    placeholderValue={el}
-                                    onClickKey={NewNameTask}
+                                    value={el.name}
+                                    placeholderValue={el.name}
+                                    newNameTask={onNewNameTask}
                                 />
-                                <BtnDelete onClicBtn={handleClickBtnDeleted} valueBtn={el} />
+                                <BtnDelete
+                                    onChecked={el.checked}
+                                    onClicBtn={handleClickBtnDeleted}
+                                    valueBtn={el.name}
+                                />
                             </div>
                         </li>
                     );

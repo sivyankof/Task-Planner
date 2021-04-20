@@ -1,12 +1,16 @@
 import React from 'react';
 
-const BtnDelete = (props) => {
-    return (<button  type='button' 
-                     className='btn-trash' 
-                     onClick={props.onClicBtn}
-                     name={props.valueBtn}>
-            </button>
-            )
+const BtnDelete = ({ onClicBtn, valueBtn, onChecked }) => {
+    let classBtn;
+    if (onChecked === false) {
+        classBtn = 'btn-trash edit-hidden';
+    } else {
+        classBtn = 'btn-trash';
+    }
+
+    // let classBtn = 'btn-trash';
+
+    return <button type='button' className={classBtn} onClick={onClicBtn} name={valueBtn}></button>;
 };
 
 export default BtnDelete;

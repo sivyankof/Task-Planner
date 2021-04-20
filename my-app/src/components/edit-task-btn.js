@@ -1,18 +1,31 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const EditTask = ({ value, placeholderValue, onClickKey }) => {
+const EditTask = ({ value, placeholderValue, newNameTask }) => {
     const [visibleClass, setVisibleClass] = useState('edit-task-input edit-hidden');
     const inputRef = useRef(null);
 
     const handleClickEdidBtn = (e) => {
         if (visibleClass === 'edit-task-input edit-hidden') {
             setVisibleClass('edit-task-input');
-
-            inputRef.current.focus();
         } else {
             setVisibleClass('edit-task-input edit-hidden');
         }
     };
+
+    const onKeyUp = (e) => {
+        if (e.key === 'Enter') {
+            let prevState = placeholderValue;
+            let newState = inputRef.current.value;
+
+            newNameTask(prevState, newState);
+        }
+    };
+
+    useEffect(() => {
+        if (!visibleClass.includes('edit-hidden')) {
+            inputRef.current.focus();
+        }
+    }, [visibleClass]);
 
     useEffect(() => {
         setVisibleClass('edit-task-input edit-hidden');
@@ -22,11 +35,10 @@ const EditTask = ({ value, placeholderValue, onClickKey }) => {
         <>
             <input
                 ref={inputRef}
-                autoFocus
                 type='text'
                 className={visibleClass}
                 placeholder={placeholderValue}
-                onKeyUp={onClickKey}></input>
+                onKeyUp={onKeyUp}></input>
             <button
                 type='button'
                 className='edit-btn-task'
