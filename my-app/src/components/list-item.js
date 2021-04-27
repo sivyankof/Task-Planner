@@ -1,86 +1,84 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+
 import InputTask from './input-task';
 import BtnDelete from './delete-btn';
 import EditTask from './edit-task-btn';
+import { createTask, toggleTodo, deletedTask, editTask } from '../redux/actions/taskActions';
 
-const ItemList = (props) => {
+const ItemList = ({
+    type,
+    name,
+    className,
+    createTask,
+    tasks,
+    toggleTodo,
+    deletedTask,
+    editTask,
+}) => {
     const [valueImput, setValueImput] = useState('');
-    const [tasksArr, setTasks] = useState([]);
+    const [errMessage, setErrMessage] = useState({
+        priorityLow: '',
+        priorityMiddle: '',
+        priorityHigh: '',
+    });
 
     const handleChange = (event) => {
         setValueImput(event.target.value);
     };
 
     const handleKeyDawn = (event) => {
+        let value = valueImput.trim();
         if (event.key === 'Enter') {
-            if (valueImput.trim().length !== 0) {
-                if (tasksArr.findIndex((el) => el.name === valueImput) === -1) {
-                    const tasksArrCopy = [...tasksArr];
+            if (value.length !== 0) {
+                if (tasks[type].findIndex((el) => el.name === value) !== -1) {
+                    const copy = { ...errMessage };
+                    copy[type] = true;
 
-                    tasksArrCopy.push({ name: valueImput, checked: false });
-
-                    setTasks(tasksArrCopy);
-                    setValueImput('');
+                    setErrMessage(copy);
                 } else {
+                    createTask({ name: value, checked: false, type });
+
+                    const copy = { ...errMessage };
+                    copy[type] = false;
+
+                    setErrMessage(copy);
+
                     setValueImput('');
-                    return;
                 }
+            } else {
+                setValueImput('');
+                return;
             }
         }
     };
 
     const onNewNameTask = (prevState, newState) => {
-        const tasksArrCopy = [...tasksArr];
-
-        tasksArrCopy.forEach((el, i) => {
-            if (el.name === prevState) {
-                tasksArrCopy[i].name = newState;
-                return setTasks(tasksArrCopy);
-            }
-        });
+        editTask({ prevState, newState, type });
     };
 
-    const onChekedInput = (event) => {
-        let check = event.target.checked;
-
-        const tasksArrCopy = [...tasksArr];
-
-        let index = tasksArrCopy.findIndex((el, i) => {
-            return el.name === event.target.name;
-        });
-
-        tasksArrCopy[index].checked = check;
-        console.log(tasksArrCopy);
-        return setTasks(tasksArrCopy);
+    const handleCheckInput = (event, name) => {
+        toggleTodo({ name, type });
     };
 
-    const handleClickBtnDeleted = (event) => {
-        let target = event.target;
-
-        const tasksArrCopy = [...tasksArr];
-
-        let index = tasksArrCopy.findIndex((el, i) => {
-            return el.name === target.name;
-        });
-
-        tasksArrCopy.splice(index, 1);
-        console.log(tasksArrCopy);
-        setTasks(tasksArrCopy);
+    const handleClickBtnDeleted = (event, name) => {
+        deletedTask({ name, type });
     };
 
     return (
-        <section className={props.className}>
-            <h2>{props.name}</h2>
+        <section className={className} type={type}>
+            <h2>{name}</h2>
             <ul>
-                {tasksArr.map((el, i) => {
+                {tasks[type].map((el, i) => {
                     return (
-                        <li key={el.name}>
-                            <div>
+                        <li key={i}>
+                            <div className='form-checkbox'>
                                 <input
                                     type='checkbox'
                                     id={el.name}
-                                    name={el.name}
-                                    onChange={onChekedInput}
+                                    className='checkmark'
+                                    checked={el.checked}
+                                    onChange={(event) => handleCheckInput(event, el.name)}
                                 />
                                 <label htmlFor={el.name}>{el.name}</label>
                             </div>
@@ -92,13 +90,14 @@ const ItemList = (props) => {
                                 />
                                 <BtnDelete
                                     onChecked={el.checked}
-                                    onClicBtn={handleClickBtnDeleted}
+                                    onClicBtn={(event) => handleClickBtnDeleted(event, el.name)}
                                     valueBtn={el.name}
                                 />
                             </div>
                         </li>
                     );
                 })}
+                {errMessage[type] && <span>Задание с таким именем уже существует!</span>}
             </ul>
             <InputTask
                 inputValue={valueImput}
@@ -109,4 +108,10 @@ const ItemList = (props) => {
     );
 };
 
-export default ItemList;
+const mapStateToProps = (state) => {
+    return { tasks: state.taskReducer };
+};
+
+export default connect(mapStateToProps, { createTask, toggleTodo, deletedTask, editTask })(
+    ItemList,
+);

@@ -18,6 +18,10 @@ const EditTask = ({ value, placeholderValue, newNameTask }) => {
             let newState = inputRef.current.value;
 
             newNameTask(prevState, newState);
+        } else if (e.key === 'Escape') {
+            
+            inputRef.current.value = '';
+            setVisibleClass('edit-task-input edit-hidden');
         }
     };
 

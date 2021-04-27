@@ -8,7 +8,6 @@ const BtnDelete = ({ onClicBtn, valueBtn, onChecked }) => {
         classBtn = 'btn-trash';
     }
 
-    // let classBtn = 'btn-trash';
 
     return <button type='button' className={classBtn} onClick={onClicBtn} name={valueBtn}></button>;
 };
