@@ -6,16 +6,16 @@ const initialState = {
 
 const taskReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'CREATE_TASK':
+        case "CREATE_TASK":
             return addTask({ ...state }, action);
 
-        case 'TOGGLE_TODO':
+        case "TOGGLE_TODO":
             return toggleTask({ ...state }, action);
 
-        case 'DELETED_TASK':
+        case "DELETED_TASK":
             return deletedTask({ ...state }, action);
 
-        case 'EDIT_TASK':
+        case "EDIT_TASK":
             return editTask({ ...state }, action);
 
         default:
@@ -35,7 +35,7 @@ const toggleTask = (state, action) => {
     const { name, type } = action.payload;
 
     state[type].map((el, i) => {
-        return el.name === name ? (el.checked = !el.checked) : '';
+        return el.name === name ? (el.checked = !el.checked) : "";
     });
     return state;
 };

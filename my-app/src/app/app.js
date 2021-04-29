@@ -1,24 +1,24 @@
-import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import { TaskPage, LoginPages, RegistPage, UsersPage } from '../pages/index';
+import { TaskPage, LoginPages, RegistPage, UsersPage } from "../pages/index";
 
 const App = () => {
     return (
         <Router>
-            <Route exact path='/'>
+            <Route exact path="/">
                 <LoginPages />
             </Route>
 
-            <Route path='/tasks'>
+            <Route path="/tasks">
                 <TaskPage />
             </Route>
 
-            <Route path='/regist'>
+            <Route path="/regist">
                 <RegistPage />
             </Route>
 
-            <Route path='/users'>
+            <Route path="/users">
                 <UsersPage />
             </Route>
         </Router>

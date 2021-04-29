@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import React, { useState } from "react";
+import { connect } from "react-redux";
 
-import InputTask from './input-task';
-import BtnDelete from './delete-btn';
-import EditTask from './edit-task-btn';
-import { createTask, toggleTodo, deletedTask, editTask } from '../redux/actions/taskActions';
+import InputTask from "./input-task";
+import BtnDelete from "./delete-btn";
+import EditTask from "./edit-task-btn";
+import {
+    createTask,
+    toggleTodo,
+    deletedTask,
+    editTask,
+} from "../redux/actions/taskActions";
 
 const ItemList = ({
     type,
@@ -16,11 +21,11 @@ const ItemList = ({
     deletedTask,
     editTask,
 }) => {
-    const [valueImput, setValueImput] = useState('');
+    const [valueImput, setValueImput] = useState("");
     const [errMessage, setErrMessage] = useState({
-        priorityLow: '',
-        priorityMiddle: '',
-        priorityHigh: '',
+        priorityLow: "",
+        priorityMiddle: "",
+        priorityHigh: "",
     });
 
     const handleChange = (event) => {
@@ -35,15 +40,17 @@ const ItemList = ({
     const handleKeyDawn = (event) => {
         let value = valueImput.trim();
         const copy = { ...errMessage };
-        if (event.key === 'Enter' && value.length !== 0) {
+
+        if (event.key === "Enter" && value.length !== 0) {
             if (dublicateChange(value) === -1) {
                 createTask({ name: value, checked: false, type });
 
                 copy[type] = false;
-                setValueImput('');
+                setValueImput("");
             } else {
                 copy[type] = true;
             }
+
             setErrMessage(copy);
         }
     };
@@ -51,6 +58,10 @@ const ItemList = ({
     const onNewNameTask = (prevState, newState) => {
         if (dublicateChange(newState) === -1) {
             editTask({ prevState, newState, type });
+        } else {
+            const copy = { ...errMessage };
+            copy[type] = true;
+            setErrMessage(copy);
         }
     };
 
@@ -76,13 +87,15 @@ const ItemList = ({
                 {tasks[type].map((el, i) => {
                     return (
                         <li key={i}>
-                            <div className='form-checkbox'>
+                            <div className="form-checkbox">
                                 <input
-                                    type='checkbox'
+                                    type="checkbox"
                                     id={el.name}
-                                    className='checkmark'
+                                    className="checkmark"
                                     checked={el.checked}
-                                    onChange={(event) => handleCheckInput(event, el.name)}
+                                    onChange={(event) =>
+                                        handleCheckInput(event, el.name)
+                                    }
                                 />
                                 <label htmlFor={el.name}>{el.name}</label>
                             </div>
@@ -96,14 +109,18 @@ const ItemList = ({
                                 )}
                                 <BtnDelete
                                     onChecked={el.checked}
-                                    onClicBtn={(event) => handleClickBtnDeleted(event, el.name)}
+                                    onClicBtn={(event) =>
+                                        handleClickBtnDeleted(event, el.name)
+                                    }
                                     valueBtn={el.name}
                                 />
                             </div>
                         </li>
                     );
                 })}
-                {errMessage[type] && <span>Задание с таким именем уже существует!</span>}
+                {errMessage[type] && (
+                    <span>Задание с таким именем уже существует!</span>
+                )}
             </ul>
             <InputTask
                 inputValue={valueImput}
@@ -118,6 +135,9 @@ const mapStateToProps = (state) => {
     return { tasks: state.taskReducer };
 };
 
-export default connect(mapStateToProps, { createTask, toggleTodo, deletedTask, editTask })(
-    ItemList,
-);
+export default connect(mapStateToProps, {
+    createTask,
+    toggleTodo,
+    deletedTask,
+    editTask,
+})(ItemList);
