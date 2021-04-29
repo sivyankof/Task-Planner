@@ -19,7 +19,6 @@ const EditTask = ({ value, placeholderValue, newNameTask }) => {
 
             newNameTask(prevState, newState);
         } else if (e.key === 'Escape') {
-            
             inputRef.current.value = '';
             setVisibleClass('edit-task-input edit-hidden');
         }
@@ -46,7 +45,7 @@ const EditTask = ({ value, placeholderValue, newNameTask }) => {
             <button
                 type='button'
                 className='edit-btn-task'
-                onClick={handleClickEdidBtn}
+                onClick={(handleClickEdidBtn)}
                 value={value}></button>
         </>
     );

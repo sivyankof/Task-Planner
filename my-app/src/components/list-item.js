@@ -25,36 +25,33 @@ const ItemList = ({
 
     const handleChange = (event) => {
         setValueImput(event.target.value);
+        if (event.target.value.length === 0) {
+            const copy = { ...errMessage };
+            copy[type] = false;
+            setErrMessage(copy);
+        }
     };
 
     const handleKeyDawn = (event) => {
         let value = valueImput.trim();
-        if (event.key === 'Enter') {
-            if (value.length !== 0) {
-                if (tasks[type].findIndex((el) => el.name === value) !== -1) {
-                    const copy = { ...errMessage };
-                    copy[type] = true;
+        const copy = { ...errMessage };
+        if (event.key === 'Enter' && value.length !== 0) {
+            if (dublicateChange(value) === -1) {
+                createTask({ name: value, checked: false, type });
 
-                    setErrMessage(copy);
-                } else {
-                    createTask({ name: value, checked: false, type });
-
-                    const copy = { ...errMessage };
-                    copy[type] = false;
-
-                    setErrMessage(copy);
-
-                    setValueImput('');
-                }
-            } else {
+                copy[type] = false;
                 setValueImput('');
-                return;
+            } else {
+                copy[type] = true;
             }
+            setErrMessage(copy);
         }
     };
 
     const onNewNameTask = (prevState, newState) => {
-        editTask({ prevState, newState, type });
+        if (dublicateChange(newState) === -1) {
+            editTask({ prevState, newState, type });
+        }
     };
 
     const handleCheckInput = (event, name) => {
@@ -63,6 +60,13 @@ const ItemList = ({
 
     const handleClickBtnDeleted = (event, name) => {
         deletedTask({ name, type });
+    };
+
+    const dublicateChange = (value) => {
+        let dublicateArr = []
+            .concat(tasks.priorityLow, tasks.priorityMiddle, tasks.priorityHigh)
+            .findIndex((el) => el.name === value);
+        return dublicateArr;
     };
 
     return (
@@ -83,11 +87,13 @@ const ItemList = ({
                                 <label htmlFor={el.name}>{el.name}</label>
                             </div>
                             <div>
-                                <EditTask
-                                    value={el.name}
-                                    placeholderValue={el.name}
-                                    newNameTask={onNewNameTask}
-                                />
+                                {el.checked !== true && (
+                                    <EditTask
+                                        value={el.name}
+                                        placeholderValue={el.name}
+                                        newNameTask={onNewNameTask}
+                                    />
+                                )}
                                 <BtnDelete
                                     onChecked={el.checked}
                                     onClicBtn={(event) => handleClickBtnDeleted(event, el.name)}

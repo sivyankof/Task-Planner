@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
-import ItemList from './list-item';
+import ItemList from '../../components/list-item';
 
-const BaseTodo = () => {
+export const TaskPage = () => {
     return (
         <Fragment>
             <header>
@@ -16,4 +16,3 @@ const BaseTodo = () => {
     );
 };
 
-export default BaseTodo;

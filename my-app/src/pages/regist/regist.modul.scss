@@ -1,0 +1,48 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    background-color: whitesmoke;
+    padding: 20px;
+    border-radius: 20px;
+    align-items: center;
+
+    &-back {
+        display: flex;
+        align-self: flex-start;
+        color: cornflowerblue;
+
+        &:active {
+            color: red;
+        }
+    }
+
+    &-title {
+        margin-top: 0;
+    }
+
+    &-select-enter {
+        height: 40px;
+        width: 314px;
+        border: 1px solid #808080ab;
+        border-radius: 10px;
+        padding-left: 10px;
+        outline: none;
+        margin-bottom: 20px;
+        font-size: 16px;
+    }
+
+    &-select-admins {
+        height: 40px;
+        width: 314px;
+        border: 1px solid #808080ab;
+        border-radius: 10px;
+        padding-left: 10px;
+        outline: none;
+        margin-bottom: 20px;
+        font-size: 16px;
+    }
+
+    &-btn-submit {
+        width: 300px;
+    }
+}

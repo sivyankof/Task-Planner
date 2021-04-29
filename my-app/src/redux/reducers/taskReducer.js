@@ -25,7 +25,6 @@ const taskReducer = (state = initialState, action) => {
 
 const addTask = (state, action) => {
     const { name, checked, type } = action.payload;
-    
 
     state[type].push({ name, checked });
 

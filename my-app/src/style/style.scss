@@ -52,6 +52,7 @@ body {
         ul {
             margin: 0;
             padding: 0;
+            min-width: 300px;
 
             li {
                 position: relative;
@@ -68,7 +69,7 @@ body {
                 font-size: 17px;
 
                 &:hover {
-                    background-color: #e15f41;
+                    background-color: #ffffff;
                 }
 
                 div {
@@ -84,7 +85,7 @@ body {
                     & + label {
                         position: relative;
                         display: inline-block;
-                        padding: 0px 10px 0px ($checkbox-width + 10);
+                        padding: 0px 10px 0px ($checkbox-width + 20);
                         cursor: pointer;
 
                         // Default State
@@ -94,7 +95,7 @@ body {
                             position: absolute;
                             left: 0;
                             top: 50%;
-                            margin: (-$checkbox-width/2) 0 0;
+                            margin: (-$checkbox-width/2 - 1) 0 0;
                             width: $checkbox-width;
                             height: $checkbox-width;
                             background-image: url('../icons/app-icons.png');
@@ -150,6 +151,8 @@ body {
                     border: none;
                     outline: none;
                     cursor: pointer;
+                    margin-right: 10px;
+                    display: block;
                     transition: all 0.3s;
 
                     &:hover {
@@ -188,20 +191,21 @@ body {
                     border-radius: 50px;
                     left: 0;
                     padding-left: 20px;
+                    background-color: lightsteelblue;
+                    transition: 0.4s;
                 }
                 .edit-hidden {
                     background-size: 0px;
-
                     padding: 0;
                     width: 0;
-                    transition: 0.2s;
+                    transition: 0.4s;
                 }
             }
 
             span {
                 margin: 10px;
                 display: block;
-                color: #ff3f2b;
+                color: #ff402b;
             }
         }
 
