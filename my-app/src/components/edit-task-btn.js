@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 const EditTask = ({ value, placeholderValue, newNameTask }) => {
-    const [visibleClass, setVisibleClass] = useState('edit-task-input edit-hidden');
+    const [visibleClass, setVisibleClass] = useState(
+        'edit-task-input edit-hidden',
+    );
     const inputRef = useRef(null);
 
     const handleClickEdidBtn = (e) => {
@@ -45,7 +47,7 @@ const EditTask = ({ value, placeholderValue, newNameTask }) => {
             <button
                 type='button'
                 className='edit-btn-task'
-                onClick={(handleClickEdidBtn)}
+                onClick={handleClickEdidBtn}
                 value={value}></button>
         </>
     );
