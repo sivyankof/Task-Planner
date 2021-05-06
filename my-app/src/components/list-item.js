@@ -14,9 +14,9 @@ import {
 export const ItemList = ({ type, name, className }) => {
     const [valueImput, setValueImput] = useState('');
     const [errMessage, setErrMessage] = useState({
-        priorityLow: '',
-        priorityMiddle: '',
-        priorityHigh: '',
+        priorityLow: "",
+        priorityMiddle: "",
+        priorityHigh: "",
     });
     const dispatch = useDispatch();
 
@@ -34,15 +34,17 @@ export const ItemList = ({ type, name, className }) => {
     const handleKeyDawn = (event) => {
         let value = valueImput.trim();
         const copy = { ...errMessage };
-        if (event.key === 'Enter' && value.length !== 0) {
+
+        if (event.key === "Enter" && value.length !== 0) {
             if (dublicateChange(value) === -1) {
                 dispatch(createTask({ name: value, checked: false, type }));
 
                 copy[type] = false;
-                setValueImput('');
+                setValueImput("");
             } else {
                 copy[type] = true;
             }
+
             setErrMessage(copy);
         }
     };
@@ -75,11 +77,11 @@ export const ItemList = ({ type, name, className }) => {
                 {tasks[type].map((el, i) => {
                     return (
                         <li key={i}>
-                            <div className='form-checkbox'>
+                            <div className="form-checkbox">
                                 <input
-                                    type='checkbox'
+                                    type="checkbox"
                                     id={el.name}
-                                    className='checkmark'
+                                    className="checkmark"
                                     checked={el.checked}
                                     onChange={(event) =>
                                         handleCheckInput(event, el.name)
