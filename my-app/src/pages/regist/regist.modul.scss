@@ -5,6 +5,9 @@
     padding: 20px;
     border-radius: 20px;
     align-items: center;
+    -webkit-box-shadow: 15px 15px 14px -1px rgba(9, 9, 9, 0.2);
+    -moz-box-shadow: 15px 15px 14px -1px rgba(9, 9, 9, 0.2);
+    box-shadow: 15px 15px 14px -1px rgba(9, 9, 9, 0.2);
 
     &-back {
         display: flex;
@@ -29,6 +32,7 @@
         outline: none;
         margin-bottom: 20px;
         font-size: 16px;
+        
     }
 
     &-select-admins {

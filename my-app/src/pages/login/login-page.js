@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-import "./login.modul.scss";
+import './login.modul.scss';
 
 export const LoginPages = () => {
     return (
@@ -29,7 +29,7 @@ export const LoginPages = () => {
                 </Link>
 
                 <Link to="/regist" className="form-btn-regist">
-                    Зарегистрироваться{" "}
+                    Зарегистрироваться{' '}
                 </Link>
             </form>
         </>

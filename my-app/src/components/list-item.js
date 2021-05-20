@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 
 import InputTask from './input-task';
 import BtnDelete from './delete-btn';
@@ -9,15 +10,37 @@ import {
     toggleTodo,
     deletedTask,
     editTask,
+    addNewTasks,
 } from '../redux/actions/taskActions';
 
 export const ItemList = ({ type, name, className }) => {
+    useEffect(() => {
+        axios
+            .get('http://localhost:8080/tasks')
+            .then((res) => {
+                console.log('res', res.data);
+
+                const newTasks = filterTasks(res.data, type);
+
+                dispatch(addNewTasks(newTasks));
+            })
+            .catch((err) => {
+                console.error('err', err);
+            });
+    }, []);
+
+    const filterTasks = (tasks, type) => {
+        return tasks.filter((task) => task.type === type);
+    };
+
     const [valueImput, setValueImput] = useState('');
+
     const [errMessage, setErrMessage] = useState({
-        priorityLow: "",
-        priorityMiddle: "",
-        priorityHigh: "",
+        priorityLow: '',
+        priorityMiddle: '',
+        priorityHigh: '',
     });
+
     const dispatch = useDispatch();
 
     const tasks = useSelector((state) => state.taskReducer);
@@ -35,12 +58,26 @@ export const ItemList = ({ type, name, className }) => {
         let value = valueImput.trim();
         const copy = { ...errMessage };
 
-        if (event.key === "Enter" && value.length !== 0) {
+        if (event.key === 'Enter' && value.length !== 0) {
             if (dublicateChange(value) === -1) {
-                dispatch(createTask({ name: value, checked: false, type }));
+                axios
+                    .post('http://localhost:8080/tasks', {
+                        name: value,
+                        checked: false,
+                        type,
+                    })
+
+                    .then((res) => {
+                        console.log('res', res);
+
+                        dispatch(createTask({ name: value, checked: false, type }));
+                    })
+                    .catch((err) => {
+                        console.error('err', err);
+                    });
 
                 copy[type] = false;
-                setValueImput("");
+                setValueImput('');
             } else {
                 copy[type] = true;
             }
@@ -49,7 +86,7 @@ export const ItemList = ({ type, name, className }) => {
         }
     };
 
-    const onNewNameTask = (prevState, newState) => {
+    const onEditTask = (prevState, newState) => {
         if (dublicateChange(newState) === -1) {
             dispatch(editTask({ prevState, newState, type }));
         }
@@ -59,8 +96,19 @@ export const ItemList = ({ type, name, className }) => {
         dispatch(toggleTodo({ name, type }));
     };
 
-    const handleClickBtnDeleted = (event, name) => {
-        dispatch(deletedTask({ name, type }));
+    const handleClickBtnDeleted = (event, name, id) => {
+        console.log(`задача ${name} удалена`);
+
+        axios
+            .delete(`http://localhost:8080/tasks/${id}`)
+            .then((res) => {
+                console.log('res', res);
+
+                dispatch(deletedTask({ name, type }));
+            })
+            .catch((err) => {
+                console.error('err', err);
+            });
     };
 
     const dublicateChange = (value) => {
@@ -83,9 +131,7 @@ export const ItemList = ({ type, name, className }) => {
                                     id={el.name}
                                     className="checkmark"
                                     checked={el.checked}
-                                    onChange={(event) =>
-                                        handleCheckInput(event, el.name)
-                                    }
+                                    onChange={(event) => handleCheckInput(event, el.name)}
                                 />
                                 <label htmlFor={el.name}>{el.name}</label>
                             </div>
@@ -94,13 +140,13 @@ export const ItemList = ({ type, name, className }) => {
                                     <EditTask
                                         value={el.name}
                                         placeholderValue={el.name}
-                                        newNameTask={onNewNameTask}
+                                        editTask={onEditTask}
                                     />
                                 )}
                                 <BtnDelete
                                     onChecked={el.checked}
                                     onClicBtn={(event) =>
-                                        handleClickBtnDeleted(event, el.name)
+                                        handleClickBtnDeleted(event, el.name, el.id)
                                     }
                                     valueBtn={el.name}
                                 />
@@ -108,9 +154,7 @@ export const ItemList = ({ type, name, className }) => {
                         </li>
                     );
                 })}
-                {errMessage[type] && (
-                    <span>Задание с таким именем уже существует!</span>
-                )}
+                {errMessage[type] && <span>Задание с таким именем уже существует!</span>}
             </ul>
             <InputTask
                 inputValue={valueImput}

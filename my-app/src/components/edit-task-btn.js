@@ -1,39 +1,37 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from 'react';
 
-const EditTask = ({ value, placeholderValue, newNameTask }) => {
-    const [visibleClass, setVisibleClass] = useState(
-        'edit-task-input edit-hidden',
-    );
+const EditTask = ({ value, placeholderValue, editTask }) => {
+    const [visibleClass, setVisibleClass] = useState('edit-task-input edit-hidden');
     const inputRef = useRef(null);
 
     const handleClickEdidBtn = (e) => {
-        if (visibleClass === "edit-task-input edit-hidden") {
-            setVisibleClass("edit-task-input");
+        if (visibleClass === 'edit-task-input edit-hidden') {
+            setVisibleClass('edit-task-input');
         } else {
-            setVisibleClass("edit-task-input edit-hidden");
+            setVisibleClass('edit-task-input edit-hidden');
         }
     };
 
     const onKeyUp = (e) => {
-        if (e.key === "Enter") {
+        if (e.key === 'Enter') {
             let prevState = placeholderValue;
             let newState = inputRef.current.value;
 
-            newNameTask(prevState, newState);
-        } else if (e.key === "Escape") {
-            inputRef.current.value = "";
-            setVisibleClass("edit-task-input edit-hidden");
+            editTask(prevState, newState);
+        } else if (e.key === 'Escape') {
+            inputRef.current.value = '';
+            setVisibleClass('edit-task-input edit-hidden');
         }
     };
 
     useEffect(() => {
-        if (!visibleClass.includes("edit-hidden")) {
+        if (!visibleClass.includes('edit-hidden')) {
             inputRef.current.focus();
         }
     }, [visibleClass]);
 
     useEffect(() => {
-        setVisibleClass("edit-task-input edit-hidden");
+        setVisibleClass('edit-task-input edit-hidden');
     }, [placeholderValue]);
 
     return (
@@ -47,9 +45,10 @@ const EditTask = ({ value, placeholderValue, newNameTask }) => {
             ></input>
             <button
                 type="button"
-                className='edit-btn-task'
+                className="edit-btn-task"
                 onClick={handleClickEdidBtn}
-                value={value}></button>
+                value={value}
+            ></button>
         </>
     );
 };
