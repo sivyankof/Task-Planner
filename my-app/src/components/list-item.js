@@ -38,7 +38,7 @@ export const ItemList = ({ type, name, className }) => {
             })
             .catch((err) => {
                 console.error('err', err);
-            });
+            });// eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const filterTasks = (tasks, type) => {
