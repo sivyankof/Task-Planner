@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const EditTask = ({ value, placeholderValue, editTask }) => {
+const EditTask = ({ value, placeholderValue, editTask, id }) => {
     const [visibleClass, setVisibleClass] = useState('edit-task-input edit-hidden');
     const inputRef = useRef(null);
+    
 
     const handleClickEdidBtn = (e) => {
         if (visibleClass === 'edit-task-input edit-hidden') {
@@ -17,7 +18,7 @@ const EditTask = ({ value, placeholderValue, editTask }) => {
             let prevState = placeholderValue;
             let newState = inputRef.current.value;
 
-            editTask(prevState, newState);
+            editTask(prevState, newState, id);
         } else if (e.key === 'Escape') {
             inputRef.current.value = '';
             setVisibleClass('edit-task-input edit-hidden');

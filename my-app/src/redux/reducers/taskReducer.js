@@ -53,6 +53,8 @@ const toggleTask = (state, action) => {
     state[type].map((el, i) => {
         return el.name === name ? (el.checked = !el.checked) : '';
     });
+
+
     return state;
 };
 

@@ -14,12 +14,24 @@ import {
 } from '../redux/actions/taskActions';
 
 export const ItemList = ({ type, name, className }) => {
+    const [valueImput, setValueImput] = useState('');
+
+    const [errMessage, setErrMessage] = useState({
+        priorityLow: '',
+        priorityMiddle: '',
+        priorityHigh: '',
+    });
+
+    const dispatch = useDispatch();
+
+    const tasks = useSelector((state) => state.taskReducer);
+
+    // ПЕРВОНАЧАЛЬНАЯ ЗАГРУЗКА ТАСКОВ
     useEffect(() => {
         axios
             .get('http://localhost:8080/tasks')
             .then((res) => {
-                console.log('res', res.data);
-
+                
                 const newTasks = filterTasks(res.data, type);
 
                 dispatch(addNewTasks(newTasks));
@@ -33,27 +45,21 @@ export const ItemList = ({ type, name, className }) => {
         return tasks.filter((task) => task.type === type);
     };
 
-    const [valueImput, setValueImput] = useState('');
-
-    const [errMessage, setErrMessage] = useState({
-        priorityLow: '',
-        priorityMiddle: '',
-        priorityHigh: '',
-    });
-
-    const dispatch = useDispatch();
-
-    const tasks = useSelector((state) => state.taskReducer);
-
     const handleChange = (event) => {
+
         setValueImput(event.target.value);
+        
         if (event.target.value.length === 0) {
+
             const copy = { ...errMessage };
+            
             copy[type] = false;
+
             setErrMessage(copy);
         }
     };
 
+    //ДОБАВЛЕНИЕ ЗАДАЧИ
     const handleKeyDawn = (event) => {
         let value = valueImput.trim();
         const copy = { ...errMessage };
@@ -86,16 +92,24 @@ export const ItemList = ({ type, name, className }) => {
         }
     };
 
-    const onEditTask = (prevState, newState) => {
-        if (dublicateChange(newState) === -1) {
-            dispatch(editTask({ prevState, newState, type }));
-        }
+    // TOOGLE
+    const handleCheckInput = (event, name, id, checked) => {
+        axios
+            .put(`http://localhost:8080/tasks/${id}`, {
+                name: name,
+                checked: !checked,
+                type,
+            })
+            .then((res) => {
+                console.log('res', res);
+                dispatch(toggleTodo({ name, type }));
+            })
+            .catch((err) => {
+                console.error('err', err);
+            });
     };
 
-    const handleCheckInput = (event, name) => {
-        dispatch(toggleTodo({ name, type }));
-    };
-
+    //УДАЛЕНИЕ
     const handleClickBtnDeleted = (event, name, id) => {
         console.log(`задача ${name} удалена`);
 
@@ -111,6 +125,27 @@ export const ItemList = ({ type, name, className }) => {
             });
     };
 
+    //РЕДАКТИРОВАНИЕ
+    const onEditTask = (prevState, newState, id) => {
+        if (dublicateChange(newState) === -1) {
+            axios
+                .put(`http://localhost:8080/tasks/${id}`, {
+                    name: newState,
+                    checked: false,
+                    type,
+                })
+                .then((res) => {
+                    console.log('res', res);
+
+                    dispatch(editTask({ prevState, newState, type }));
+                })
+                .catch((err) => {
+                    console.error('err', err);
+                });
+        }
+    };
+
+    //ПРОВЕРКА НА ДУБЛИКАТ
     const dublicateChange = (value) => {
         let dublicateArr = []
             .concat(tasks.priorityLow, tasks.priorityMiddle, tasks.priorityHigh)
@@ -131,13 +166,21 @@ export const ItemList = ({ type, name, className }) => {
                                     id={el.name}
                                     className="checkmark"
                                     checked={el.checked}
-                                    onChange={(event) => handleCheckInput(event, el.name)}
+                                    onChange={(event) =>
+                                        handleCheckInput(
+                                            event,
+                                            el.name,
+                                            el.id,
+                                            el.checked
+                                        )
+                                    }
                                 />
                                 <label htmlFor={el.name}>{el.name}</label>
                             </div>
                             <div>
                                 {el.checked !== true && (
                                     <EditTask
+                                        id={el.id}
                                         value={el.name}
                                         placeholderValue={el.name}
                                         editTask={onEditTask}
