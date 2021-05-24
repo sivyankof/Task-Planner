@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 import InputTask from './input-task';
@@ -26,33 +27,63 @@ export const ItemList = ({ type, name, className }) => {
 
     const tasks = useSelector((state) => state.taskReducer);
 
-    // ПЕРВОНАЧАЛЬНАЯ ЗАГРУЗКА ТАСКОВ
+    const history = useHistory();
+
+    const [userId, setUserId] = useState('');
+
     useEffect(() => {
+        if (!JSON.parse(localStorage.getItem('isAdmin'))) {
+            axios
+                .get('http://localhost:8080/users/userId', {
+                    headers: { token: localStorage.getItem('token') },
+                })
+                .then((res) => {
+                    if (res.status === 200) {
+                        setUserId(res.data);
+                        getTasksRequest(res.data);
+                    }
+                })
+                .catch((err) => {
+                    console.error(err);
+                    if (err.response.status === 401) {
+                        history.push('/login');
+                    }
+                });
+        } else {
+            const id = history.location.pathname.split('/')[2];
+            setUserId(id);
+            getTasksRequest(id);
+        }
+    }, []);
+
+    const getTasksRequest = (userId) => {
         axios
-            .get('http://localhost:8080/tasks')
+            .get(`http://localhost:8080/tasks/${userId}`, {
+                headers: { token: localStorage.getItem('token') },
+            })
             .then((res) => {
-                
                 const newTasks = filterTasks(res.data, type);
 
                 dispatch(addNewTasks(newTasks));
             })
             .catch((err) => {
-                console.error('err', err);
-            });// eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+                console.error(err);
+                if (err.response.status === 401) {
+                    history.push('/login');
+                }
+            });
+    };
 
     const filterTasks = (tasks, type) => {
         return tasks.filter((task) => task.type === type);
     };
 
     const handleChange = (event) => {
-
         setValueImput(event.target.value);
-        
-        if (event.target.value.length === 0) {
 
+        if (event.target.value.length === 0) {
             const copy = { ...errMessage };
-            
+
             copy[type] = false;
 
             setErrMessage(copy);
@@ -67,19 +98,27 @@ export const ItemList = ({ type, name, className }) => {
         if (event.key === 'Enter' && value.length !== 0) {
             if (dublicateChange(value) === -1) {
                 axios
-                    .post('http://localhost:8080/tasks', {
-                        name: value,
-                        checked: false,
-                        type,
-                    })
-
+                    .post(
+                        `http://localhost:8080/tasks/${userId}`,
+                        {
+                            name: value,
+                            checked: false,
+                            type,
+                        },
+                        {
+                            headers: { token: localStorage.getItem('token') },
+                        },
+                    )
                     .then((res) => {
                         console.log('res', res);
 
                         dispatch(createTask({ name: value, checked: false, type }));
                     })
                     .catch((err) => {
-                        console.error('err', err);
+                        console.error(err);
+                        if (err.response.status === 401) {
+                            history.push('/login');
+                        }
                     });
 
                 copy[type] = false;
@@ -94,12 +133,21 @@ export const ItemList = ({ type, name, className }) => {
 
     // TOOGLE
     const handleCheckInput = (event, name, id, checked) => {
+        localStorage.getItem('isAdmin');
+        console.log(localStorage.getItem('isAdmin'));
         axios
-            .put(`http://localhost:8080/tasks/${id}`, {
-                name: name,
-                checked: !checked,
-                type,
-            })
+            .put(
+                `http://localhost:8080/tasks/${userId}`,
+                {
+                    id,
+                    name: name,
+                    checked: !checked,
+                    type,
+                },
+                {
+                    headers: { token: localStorage.getItem('token') },
+                },
+            )
             .then((res) => {
                 console.log('res', res);
                 dispatch(toggleTodo({ name, type }));
@@ -114,14 +162,20 @@ export const ItemList = ({ type, name, className }) => {
         console.log(`задача ${name} удалена`);
 
         axios
-            .delete(`http://localhost:8080/tasks/${id}`)
+            .delete(`http://localhost:8080/tasks/${userId}/${id}`, {
+                headers: { token: localStorage.getItem('token') },
+            })
             .then((res) => {
                 console.log('res', res);
-
-                dispatch(deletedTask({ name, type }));
+                if (res.status === 204) {
+                    dispatch(deletedTask({ name, type }));
+                }
             })
             .catch((err) => {
-                console.error('err', err);
+                console.error(err);
+                if (err.response.status === 401) {
+                    history.push('/login');
+                }
             });
     };
 
@@ -129,18 +183,27 @@ export const ItemList = ({ type, name, className }) => {
     const onEditTask = (prevState, newState, id) => {
         if (dublicateChange(newState) === -1) {
             axios
-                .put(`http://localhost:8080/tasks/${id}`, {
-                    name: newState,
-                    checked: false,
-                    type,
-                })
+                .put(
+                    `http://localhost:8080/tasks/${userId}`,
+                    {
+                        id,
+                        name: newState,
+                        checked: false,
+                        type,
+                    },
+                    {
+                        headers: { token: localStorage.getItem('token') },
+                    },
+                )
                 .then((res) => {
                     console.log('res', res);
-
                     dispatch(editTask({ prevState, newState, type }));
                 })
                 .catch((err) => {
-                    console.error('err', err);
+                    console.error(err);
+                    if (err.response.status === 401) {
+                        history.push('/login');
+                    }
                 });
         }
     };
@@ -160,18 +223,18 @@ export const ItemList = ({ type, name, className }) => {
                 {tasks[type].map((el, i) => {
                     return (
                         <li key={i}>
-                            <div className="form-checkbox">
+                            <div className='form-checkbox'>
                                 <input
-                                    type="checkbox"
+                                    type='checkbox'
                                     id={el.name}
-                                    className="checkmark"
+                                    className='checkmark'
                                     checked={el.checked}
                                     onChange={(event) =>
                                         handleCheckInput(
                                             event,
                                             el.name,
                                             el.id,
-                                            el.checked
+                                            el.checked,
                                         )
                                     }
                                 />
@@ -186,13 +249,16 @@ export const ItemList = ({ type, name, className }) => {
                                         editTask={onEditTask}
                                     />
                                 )}
-                                <BtnDelete
-                                    onChecked={el.checked}
-                                    onClicBtn={(event) =>
-                                        handleClickBtnDeleted(event, el.name, el.id)
-                                    }
-                                    valueBtn={el.name}
-                                />
+
+                                {JSON.parse(localStorage.getItem('isAdmin')) && (
+                                    <BtnDelete
+                                        onChecked={el.checked}
+                                        onClicBtn={(event) =>
+                                            handleClickBtnDeleted(event, el.name, el.id)
+                                        }
+                                        valueBtn={el.name}
+                                    />
+                                )}
                             </div>
                         </li>
                     );

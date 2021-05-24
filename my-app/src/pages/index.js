@@ -1,4 +1,4 @@
-export { TaskPage } from "./task/task-page";
-export { LoginPages } from "./login/login-page";
-export { RegistPage } from "./regist/regist-page";
-export { UsersPage } from "./users/users-page";
+export { TaskPage } from "./tasks/tasks";
+export { LoginPages } from "./login/login";
+export { RegistPage } from "./registration/registration";
+export { UsersPage } from "./users/users";
