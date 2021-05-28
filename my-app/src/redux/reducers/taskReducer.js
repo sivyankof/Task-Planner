@@ -40,9 +40,9 @@ const addNewTasks = (state, action) => {
 };
 
 const addTask = (state, action) => {
-    const { name, checked, type } = action.payload;
+    const { name, checked, id, type} = action.payload;
 
-    state[type].push({ name, checked });
+    state[type].push({ name, checked, id });
 
     return state;
 };
@@ -53,7 +53,6 @@ const toggleTask = (state, action) => {
     state[type].map((el, i) => {
         return el.name === name ? (el.checked = !el.checked) : '';
     });
-
 
     return state;
 };

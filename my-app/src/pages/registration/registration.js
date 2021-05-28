@@ -35,6 +35,7 @@ export const RegistPage = () => {
             .catch((err) => {
                 console.error(err);
             });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const changeFormValue = (value, fieldName) => {

@@ -31,6 +31,7 @@ export const ItemList = ({ type, name, className }) => {
 
     const [userId, setUserId] = useState('');
 
+    //ПЕРВОНАЧАЛЬНАЯ ОТРИСОВКА
     useEffect(() => {
         if (!JSON.parse(localStorage.getItem('isAdmin'))) {
             axios
@@ -54,6 +55,7 @@ export const ItemList = ({ type, name, className }) => {
             setUserId(id);
             getTasksRequest(id);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const getTasksRequest = (userId) => {
@@ -74,6 +76,7 @@ export const ItemList = ({ type, name, className }) => {
             });
     };
 
+    //ОТФИЛЬТРОВКА ПО ТИПУ ЗАДАЧЬ
     const filterTasks = (tasks, type) => {
         return tasks.filter((task) => task.type === type);
     };
@@ -110,9 +113,19 @@ export const ItemList = ({ type, name, className }) => {
                         },
                     )
                     .then((res) => {
-                        console.log('res', res);
+                        console.log(res.status);
+                        if (res.status === 200) {
+                            console.log('res', res);
 
-                        dispatch(createTask({ name: value, checked: false, type }));
+                            dispatch(
+                                createTask({
+                                    name: value,
+                                    checked: false,
+                                    id: res.data._id,
+                                    type,
+                                }),
+                            );
+                        }
                     })
                     .catch((err) => {
                         console.error(err);
@@ -133,8 +146,6 @@ export const ItemList = ({ type, name, className }) => {
 
     // TOOGLE
     const handleCheckInput = (event, name, id, checked) => {
-        localStorage.getItem('isAdmin');
-        console.log(localStorage.getItem('isAdmin'));
         axios
             .put(
                 `http://localhost:8080/tasks/${userId}`,
@@ -181,6 +192,8 @@ export const ItemList = ({ type, name, className }) => {
 
     //РЕДАКТИРОВАНИЕ
     const onEditTask = (prevState, newState, id) => {
+        const copy = { ...errMessage };
+
         if (dublicateChange(newState) === -1) {
             axios
                 .put(
@@ -205,7 +218,13 @@ export const ItemList = ({ type, name, className }) => {
                         history.push('/login');
                     }
                 });
+            copy[type] = false;
+            setValueImput('');
+        } else {
+            copy[type] = true;
         }
+
+        setErrMessage(copy);
     };
 
     //ПРОВЕРКА НА ДУБЛИКАТ
