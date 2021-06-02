@@ -1,11 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import { TaskPage, LoginPages, RegistPage, UsersPage } from '../pages/index';
+import { TaskPage, LoginPages, RegistPage, UsersPage, HomePage } from '../pages/index';
 
 const App = () => {
     return (
         <Router>
+            <Route exact path='/'>
+                <HomePage />
+            </Route>
+
             <Route path='/login'>
                 <LoginPages />
             </Route>
